@@ -1,26 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './shared/modules/material.module';
+import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
+import { CustomHttpInterceptorService } from './shared/services/interceptor';
+import RegistrationService from './shared/services/registration.service';
+import { HeaderComponent } from './shared/containers/header/header.component';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
-    LoginComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    // CommonModule,
+    // ReactiveFormsModule,
+    // FormsModule,
+    HttpClientModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true },
+    RegistrationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
