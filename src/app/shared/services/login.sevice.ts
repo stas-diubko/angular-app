@@ -14,11 +14,17 @@ export class LoginService {
   register$ = this.loginData;  
   constructor(private http: HttpClient) { }
  
+  getToken () {
+    return localStorage.getItem("token");
+  }
+
   setloginState(loginData: LoginData){
     this.loginData.next(loginData)
   } 
   
   post(url: string, auth): Observable<any>{
+    // console.log(auth);
+    
     return this.http.post(`${this.urlApi}${url}`, auth)
   }
   

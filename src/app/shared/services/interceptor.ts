@@ -4,9 +4,6 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-
-
-
 @Injectable()
 export class CustomHttpInterceptorService implements HttpInterceptor {
     constructor(private router: Router, ) { }

@@ -10,12 +10,14 @@ import { CustomHttpInterceptorService } from './shared/services/interceptor';
 import RegistrationService from './shared/services/registration.service';
 import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
+import { MainComponent } from './main/main.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
