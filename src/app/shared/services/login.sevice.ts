@@ -12,10 +12,15 @@ export class LoginService {
   private urlApi = environment.url;
   private loginData = new Subject<LoginData>();
   register$ = this.loginData;  
+
+  private isLogIn = new Subject<any>() ;
+  
+  logIn$ = this.isLogIn.asObservable();
+
   constructor(private http: HttpClient) { }
  
-  getToken () {
-    return localStorage.getItem("token");
+  getToken (log) {
+    this.isLogIn.next(log);
   }
 
   setloginState(loginData: LoginData){
