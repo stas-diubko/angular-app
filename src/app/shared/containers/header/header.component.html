@@ -1,12 +1,13 @@
-<header style="width: 100%; height: 80px; background-color: #00BFFF; display: flex; align-items: center; justify-content: space-between">
-    <h1 style="margin: 0 0 0 30px;">Book's Shop</h1>
-    <div *ngIf="isLogIn" style="margin: 0 30px 0 0; display: flex; justify-content: space-between; align-items: center">
+<header >
+    <h1 >Book's Shop</h1>
+    <div class="users-window" *ngIf="isLogin" >
         <i class="material-icons" style="margin-right: 10px">
             shopping_basket
         </i>
         <h4>Hello: {{email}}</h4>
+        <img src={{userImage}} alt="user's avatar">
     </div>
-    <div *ngIf="!isLogIn" style="margin: 0 30px 0 0; display: flex; justify-content: space-between; align-items: center">
+    <div class="login" *ngIf="!isLogin" >
         <span>Log In</span>
     </div>
 </header>

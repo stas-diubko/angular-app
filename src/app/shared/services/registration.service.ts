@@ -14,4 +14,5 @@ export default class RegistrationService {
       
     return this.http.post(`${this.urlApi}${url}`, user)
   }
+  
 }

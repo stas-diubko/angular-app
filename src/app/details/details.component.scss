@@ -1,0 +1,13 @@
+.details-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2, h4 {
+        color: brown;
+    }
+    
+    div {
+        color: crimson;
+    }
+}

@@ -10,27 +10,36 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   private email:string = '';
-  
+  public userImage:string = ''
+  // public isLogin:boolean = false;
+  isLogin: Subscription;
   dataUser: Subscription;
   // private dataToken: any;
   constructor(private loginService: LoginService) { 
-    this.dataUser = this.loginService.logIn$.subscribe(data => { 
-      // console.log(data);
-      
-      // this.dataUser = data; 
-      // let token = localStorage.getItem('token');
-      // const decoded = jwt_decode(token) as any;
-      // console.log(decoded);
-      
+    this.dataUser = this.loginService.token$.subscribe(data => { 
+            
       this.email = data.email
     });
+
+    this.isLogin = this.loginService.isLogin.subscribe(data => {
+     
+    })
+
+   
   }
 
-  public isLogIn = this.loginService.logIn$
+  // public isLogIn = this.loginService.is$
 
   
   ngOnInit() {
+    let token = localStorage.getItem('token');
+      const decoded = jwt_decode(token) as any;
+      
+    this.loginService.getToken();
 
+    this.loginService.getAvatar(`users/avatar/${decoded.id}`).subscribe((data:any)=>{
+      this.userImage = data.data
+    })
     
   }
 

@@ -1,0 +1,37 @@
+
+.main-wrap {
+display: flex;
+align-items: center;
+}
+
+.item-wrap {
+    width: 350px;
+    height: 500px;
+
+}
+
+.item-wrap button {
+    margin-top: 5px;
+}
+
+.item-wrap img {
+    max-height: 300px;
+    max-width: 200px;
+}
+
+.description-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.description-wrap div {
+    margin-top: 5px;
+}
+
+.list-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}

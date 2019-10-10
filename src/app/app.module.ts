@@ -10,7 +10,9 @@ import { CustomHttpInterceptorService } from './shared/services/interceptor';
 import RegistrationService from './shared/services/registration.service';
 import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
+import { MainComponent } from './home/home.component';
+
+import { AboutBookComponent } from './details/details.component';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { MainComponent } from './main/main.component';
     AppComponent,
     HeaderComponent,
     MainComponent,
+    AboutBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { MainComponent } from './main/main.component';
     // ReactiveFormsModule,
     // FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true },
