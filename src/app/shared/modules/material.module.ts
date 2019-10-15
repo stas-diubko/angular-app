@@ -30,7 +30,7 @@ import { MatListModule } from '@angular/material/list';
 // import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { MatRadioModule } from '@angular/material/radio';
 // import { MatSelectModule } from '@angular/material/select';
-// import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatSliderModule } from '@angular/material/slider';
 // import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -86,7 +86,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     // MatRadioModule,
     // MatRippleModule,
     // MatSelectModule,
-    // MatSidenavModule,
+    MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,
     // MatSnackBarModule,
@@ -137,7 +137,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     // MatRadioModule,
     // MatRippleModule,
     // MatSelectModule,
-    // MatSidenavModule,
+    MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,
     // MatSnackBarModule,

@@ -10,24 +10,24 @@ import { CustomHttpInterceptorService } from './shared/services/interceptor';
 import RegistrationService from './shared/services/registration.service';
 import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './home/home.component';
+import { HomeComponent } from './home/home.component';
 
 import { AboutBookComponent } from './details/details.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    MainComponent,
+    HomeComponent,
     AboutBookComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    // CommonModule,
-    // ReactiveFormsModule,
-    // FormsModule,
     HttpClientModule,
     AppRoutingModule,
     MaterialModule,

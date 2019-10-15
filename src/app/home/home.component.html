@@ -1,16 +1,20 @@
 
 <div class="main-wrap">
     <div class="mdc-layout-grid list-wrap">
-        <div *ngFor="let book of books" class="mdc-layout-grid__inner ">
+        <div *ngFor="let book of books" mat-grid-list class="mdc-layout-grid__inner ">
         <div  class="mdc-layout-grid__cell item-wrap">
-            <img src={{book.bookImage}} alt="book image">
+            <div class="item-head">
+                <img src={{book.bookImage}} alt="book image">
+                <div class="item-head-info">
+                    <div>Title: <span>{{book.title}}</span></div>
+                    <div>Author: <span>{{book.author}}</span></div>
+                </div>
+            </div>
             <div class="description-wrap">
-                <div><span>{{book.title}}</span></div>
-                <div><span>{{book.author}}</span></div>
-                <div><span>{{book.description}}</span></div>
-                <div><span>Price: {{book.price}} $</span></div>
-                <button id={{book._id}} mat-raised-button style="width: 110px" [routerLink]="['/books', book._id]" (click)="showDetails($event)">Go</button>
-                <button id={{book._id}} mat-raised-button style="width: 110px">Add to Cart</button>
+                <h4>Description</h4>
+                <p class="description">{{book.description}} </p>
+                <div class="aom" ><button class="see-more" id={{book._id}} mat-raised-button  style="width: 110px" [routerLink]="['/books', book._id]" (click)="showDetails($event)">See more</button><div>Price: <span class="book-price">{{book.price}} $</span></div></div>
+                <button id={{book._id}} mat-raised-button color="accent" style="width: 110px">Add to Cart</button>
             </div>     
         </div>
     </div>

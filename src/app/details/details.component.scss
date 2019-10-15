@@ -1,13 +1,64 @@
-.details-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    h2, h4 {
-        color: brown;
-    }
-    
-    div {
-        color: crimson;
-    }
+@font-face {
+    font-family: "OpenSans Bold";
+    src: url("../../assets/fonts/OpenSansCondensed-Bold.ttf");
 }
+
+.details-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .back-to-home {
+        display: flex;
+        position: absolute;
+        position: absolute;
+        margin: 24px -40%;
+        color: maroon;
+        align-items: center;
+        
+
+    }
+    .back-to-home:hover {
+        cursor: pointer;
+    }
+        h2{
+            color: brown;
+        }
+        .item-wrap {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 40px;
+            background-color: lightgrey;
+            border-radius: 30px;
+            img {
+                max-width: 300px;
+                max-height: 400px;
+            }
+        }
+        .book-price {
+            color: crimson;
+        }
+        .books-data {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-left: 15px;
+            .author-name {
+                color: mediumblue;
+            }
+            h4 {
+                margin: 0;
+            }
+            p {
+                max-width: 300px;
+                font-family: "OpenSans Bold";
+                color:darkgray;
+            }
+            button {
+                margin: 40px 0 0;
+            }
+
+        }
+}
+

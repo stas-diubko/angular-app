@@ -3,18 +3,21 @@ import * as jwt_decode from "jwt-decode";
 import { LoginService } from '../../services/login.sevice';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
   private email:string = '';
-  public userImage:string = ''
-  // public isLogin:boolean = false;
+  public userImage:string = '';
   isLogin: Subscription;
   dataUser: Subscription;
-  // private dataToken: any;
+  
+ 
+
   constructor(private loginService: LoginService) { 
     this.dataUser = this.loginService.token$.subscribe(data => { 
             
@@ -25,12 +28,10 @@ export class HeaderComponent implements OnInit {
      
     })
 
-   
+  
   }
 
-  // public isLogIn = this.loginService.is$
-
-  
+    
   ngOnInit() {
     let token = localStorage.getItem('token');
       const decoded = jwt_decode(token) as any;

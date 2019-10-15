@@ -1,3 +1,37 @@
+.router-container {
+    position: relative;
+}
+.nav {
+    display: flex;
+    width: 250px;
+    background-color: linen;
+    flex-direction: row; 
+}
+.logo-wrap {
+    display: flex;
+}
+.side-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .header-wrap {
+      position: relative;
+  }
+
+.sidenav {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 250px;
+    // margin-top: 20px;
+    background-color: mintcream;
+    z-index: 2;
+}
+
 .users-window {
     margin: 0 30px 0 0; 
     display: flex; 
@@ -22,7 +56,7 @@ header {
     background-color: #00BFFF; 
     display: flex; 
     align-items: center; 
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 h1 {

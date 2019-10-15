@@ -1,11 +1,20 @@
 <div class="details-wrap">
+    <div class="back-to-home" [routerLink]="['/home']"><i class="material-icons"> arrow_back_ios </i><span>Back to home</span> </div>
     <h2>Book's details</h2>
-    
-    <h3>{{book.title}}</h3>
-    <img src={{book.bookImage}} alt="book's image">
-    <h4>{{book.author}}</h4>
-    <p>{{book.description}}</p>
-    <div><span>Price: {{book.price}} $</span></div>
+    <div class="item-wrap">
+        <div>
+            <img src={{book.bookImage}} alt="book's image">
+        </div>
+        <div class="books-data">
+            <h3>{{book.title}}</h3>
+            <h4>Author: <span class="author-name">{{book.author}}</span> </h4>
+            <p>{{book.description}}</p>
+            <div class="book-price"><span>Price: {{book.price}} $</span></div>
+            <button mat-raised-button color="accent" style="width: 110px">Add to Cart</button>
 
+        </div>
+       
+    </div>
+    
 </div>
 

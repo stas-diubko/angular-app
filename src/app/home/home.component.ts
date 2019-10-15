@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
-export class MainComponent implements OnInit {
+export class HomeComponent implements OnInit {
   public books:object = []
 
 
@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   showDetails (e) {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     // this.router.navigate(['books', 3]);
     
   }

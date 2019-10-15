@@ -1,0 +1,90 @@
+// @import "../../assets/scss/styles";
+@font-face {
+    font-family: "OpenSans Light";
+    src: url("../../assets/fonts/OpenSansCondensed-Light.ttf");
+}
+
+.main-wrap {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.list-wrap {
+    width: 1200px;
+    margin: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.item-wrap {
+    width: 320px;
+    height: 450px;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: lightgrey;
+    
+    .item-head { 
+        display: flex;
+        .item-head-info {
+            margin: 10px 10px;
+            div {
+                margin-bottom: 10px;
+                font-weight: 600;
+                span {
+                    color: maroon;
+                }
+            }
+            
+        }
+    }
+
+    img {
+        max-height: 250px;
+        max-width: 150px;
+        border-radius: 10px;
+    }
+
+    button {
+        margin-top: 5px;
+    }
+}
+
+.description-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+        .description {
+            color: gray;
+            font-family: "OpenSans Light";
+        }
+        h4 {
+            margin: 10px 0 0;
+        }
+        .see-more {
+            max-width: 70px;
+            margin: 0 10px 10px 0; 
+            padding: 0;
+        }
+        p {
+            max-height: 70px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        .aom {
+            display: flex;
+            align-items: center; 
+            justify-content: space-between;
+        }
+        .book-price {
+            color: red;
+            margin-right: 15px;
+        }
+}
+
+
+

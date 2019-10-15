@@ -1,6 +1,40 @@
 <div class="app-container">
+        <mat-sidenav-container class="side-container" (backdropClick)="close('backdrop')" >
+        <mat-sidenav class="nav" #sidenav (keydown.escape)="close('escape')" disableClose>
+            <div>
+                <div>Home</div>
+                <div>Cart</div>
+                <div>Profile</div>
+                <div>Logout</div>   
+            </div>
+            <div>
+                <button mat-button (click)="close('toggle button')"><i class="material-icons">clear</i></button>
+            </div>
+                
+        </mat-sidenav>
+    <mat-sidenav-content>
+                    
     <div class="router-container" >
-        <app-header></app-header>
-        <router-outlet></router-outlet>
+        <header class="header-wrap">
+                <div class="logo-wrap">
+                    <div>
+                        <button mat-button (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+                    </div>
+                    <h1 >Book's Shop</h1>
+                </div>
+                <div class="users-window" *ngIf="isLogin" >
+                    <i class="material-icons" style="margin-right: 10px">
+                        shopping_basket
+                    </i>
+                    <h4>Hello: {{email}}</h4>
+                    <img src={{userImage}} alt="user's avatar">
+                </div>
+                <div class="login" *ngIf="!isLogin" >
+                    <span>Log In</span>
+                </div>
+            </header>
+          <router-outlet></router-outlet>
     </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 </div>
