@@ -1,0 +1,58 @@
+<div class="cart-wrap">
+    <div *ngIf="products.length == 0" class="empty-cart"><span>Cart is empty :(</span></div>
+    <div *ngIf="products.length !== 0" class="cart-head">
+        <span>Cart ({{products.length}} products)</span>
+        
+        <div class="chose-all" *ngIf="!checkedAll"><span>Choose all</span><mat-checkbox (change)="checkValueAll(checked)"></mat-checkbox></div>
+        <div class="chose-all" *ngIf="checkedAll" ><span>Choose all</span><mat-checkbox [checked]="isCheck" *ngIf="checkedAll" (change)="checkValueAll(checked)"></mat-checkbox></div>
+   
+    </div>
+    <div class="cart-item" *ngFor='let product of products' >
+            <div class="check-wrap">
+                <mat-checkbox
+                    *ngIf="!checkedAll"
+                    id={{product.bookId}}
+                    [(checked)]="checked"
+                    (change)="checkValue($event)"
+                ></mat-checkbox>
+                <mat-checkbox
+                    *ngIf="checkedAll"
+                    [checked]="isCheck"
+                    [disabled]="true"
+                ></mat-checkbox>
+            </div>
+            <div class="cart-img">
+                <img src={{product.bookImage}} alt={{product.title}}>
+            </div>
+            <div class="cart-description">
+                <h3 [routerLink]="['/books', product.bookId]">Title: {{product.title}}</h3>
+                <h4>Author: {{product.author}}</h4>
+                <!-- <p>{{product.description}}</p> -->
+                <div class="price">
+                    Price: <span>{{product.price}} $</span>
+                </div>
+                <div class="calculation">
+                    <button id={{product.bookId}} mat-raised-button (click)="decreaseTotalProduct($event)">-</button>
+                    <div class="count-item">{{product.quantity}}</div>
+                    <button id={{product.bookId}} mat-raised-button (click)="increaseTotalProduct($event)">+</button>
+                </div>
+                <div class="total-product">
+                    Total product: <span>{{product.price * product.quantity}} $</span>
+                </div>
+                <div id={{product.bookId}} (click)="onRemove($event)" class="remove">
+                    <i class="material-icons">
+                        delete_forever
+                    </i>
+                </div>
+            </div>
+    </div>
+    <div *ngIf="products.length !== 0" class="buy">
+        <div class="total-cart">
+            <h3>Order price:</h3>
+            <div>
+                Total cart: <span>{{totalCart}} $</span>
+            </div>
+        </div>
+        <button mat-raised-button>Buy</button>
+    </div>
+</div>

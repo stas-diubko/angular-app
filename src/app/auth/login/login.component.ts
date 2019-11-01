@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
         password: data.password
       })
     })
+    
   }
 
 
@@ -54,7 +55,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+  
+    
   }
 
 }

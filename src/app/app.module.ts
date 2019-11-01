@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/modules/material.module';
 import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
-import { CustomHttpInterceptorService } from './shared/services/interceptor';
+import { CustomHttpInterceptorService } from './shared/interceptors/interceptor';
 import RegistrationService from './shared/services/registration.service';
 import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 
 import { AboutBookComponent } from './details/details.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -23,7 +25,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     HeaderComponent,
     HomeComponent,
     AboutBookComponent,
-    SidenavComponent
+    SidenavComponent,
+    CartComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

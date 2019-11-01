@@ -12,7 +12,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 // import { MatCardModule } from '@angular/material/card';
-// import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 // import { MatChipsModule } from '@angular/material/chips';
 // import { MatStepperModule } from '@angular/material/stepper';
 // import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -52,7 +52,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     // // BrowserAnimationsModule,
     MatButtonModule,
-    // MatCheckboxModule,
+    MatCheckboxModule,
     // MatInputModule,
     // // FormsModule,
     // // ReactiveFormsModule,
@@ -103,7 +103,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     // // BrowserAnimationsModule,
     MatButtonModule,
-    // MatCheckboxModule,
+    MatCheckboxModule,
     // MatInputModule,
     FormsModule,
     ReactiveFormsModule,

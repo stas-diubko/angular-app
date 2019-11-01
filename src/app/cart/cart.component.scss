@@ -1,0 +1,155 @@
+@font-face {
+    font-family: "OpenSans Light";
+    src: url("../../assets/fonts/OpenSansCondensed-Light.ttf");
+}
+
+.cart-wrap {
+    padding-bottom: 20px;
+    min-height: 783px;
+    .empty-cart {
+        font-size: 24px;
+    }
+    .cart-head{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        color: brown;
+        border-bottom: 1px solid rgb(189, 218, 235);
+        background-color: rgb(252, 241, 224);
+    }
+    .chose-all{
+        color: rgb(27, 26, 26);
+        font-size: 16px;
+        margin-left: 118px;
+        span {
+            margin-right: 10px;
+        }
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .cart-item {
+        position: relative;
+        display: flex;
+        margin: 10px;
+        width: 400px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid rgb(197, 194, 194);
+        background-color: rgb(221, 217, 217);
+        .check-wrap {
+            position: absolute;
+            right: 10px;
+        }
+        .cart-img {
+            img {
+                height: 150px;
+                width: 90px;
+                border-radius: 10px;
+            }
+        }
+        .cart-description {
+            margin: 10px 20px;
+            width: 100%;
+            h3 {
+                font-size: 16px;
+                margin: 0;
+                color: brown;
+                cursor: pointer;
+            }
+            h3:hover {
+                color: red;
+            }
+            h4 {
+                font-size: 14px;
+                margin: 5px 0 20px;
+                color: darkblue;
+            }
+            p {
+                color: rgb(27, 26, 26);
+                font-family: "OpenSans Light";
+                font-weight: 600;
+            }
+            .price {
+                color: rgb(238, 38, 38);
+                font-weight: 600;
+                span {
+                color: rgb(81, 148, 236);
+                }
+            }
+            .calculation {
+                display: flex;
+                margin-top: 20px;
+                button {
+                    padding: 0;
+                    line-height: 20px;
+                    font-size: 20px;
+                }
+                .count-item {
+                    margin: 0 20px;
+                    color: rgb(152, 34, 236);
+                    font-weight: 600;
+                }
+            }
+            .total-product {
+                margin: 20px 0 0;
+                color: rgb(77, 44, 44);
+                font-weight: 600;
+                span {
+                    color: rgb(81, 148, 236);
+                    font-weight: 600;
+                }
+            }
+            .remove {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 20px;
+                color: rgb(158, 7, 7);
+                cursor: pointer;
+                i {
+                    font-size: 34px;
+                }
+            }
+            .remove:hover {
+                color: #000;
+            }
+        }
+    }
+    .buy {
+        position: fixed;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 150px;
+        width: 260px;
+        padding: 10px;
+        background-color: rgba(66, 125, 252, 0.445);
+        border-radius: 20px;
+        right: 0;
+        top: 0;
+        margin: 161px 66px 0 0;
+        .total-cart {
+            margin-bottom: 10px;
+            h3 {
+                color: brown;
+                margin: 0 0 20px
+            }
+            div {
+                color: rgb(0, 41, 128);
+                font-size: 20px;
+            }
+        }
+        button {
+            background-color: rgba(0, 252, 34, 0.623);
+            width: 70%;
+            height: 40px;
+            color: rgb(206, 12, 38);
+            font-size: 20px;
+            margin: 0 auto;
+        }
+    }
+}

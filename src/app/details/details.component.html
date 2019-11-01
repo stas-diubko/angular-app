@@ -10,7 +10,7 @@
             <h4>Author: <span class="author-name">{{book.author}}</span> </h4>
             <p>{{book.description}}</p>
             <div class="book-price"><span>Price: {{book.price}} $</span></div>
-            <button mat-raised-button color="accent" style="width: 110px">Add to Cart</button>
+            <button id={{book._id}} mat-raised-button color="accent" style="width: 110px" (click)="addToCart($event)">Add to Cart</button>
 
         </div>
        

@@ -28,16 +28,23 @@ export class LoginService {
     return this.http.get<any>(`${this.urlApi}${url}`)
   } 
 
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        return false
+    }
+    return true
+  }
+
   getToken () {
     let token = localStorage.getItem('token')
     if (token) {
       const decoded = jwt_decode(token);
       this.token.next(decoded);
       this.isLogin.next(true)
+      return decoded;
     } 
   }
-
- 
 
   setloginState(loginData: LoginData){
     this.loginData.next(loginData)
