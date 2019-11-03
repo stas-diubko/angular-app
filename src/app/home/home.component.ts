@@ -34,14 +34,18 @@ export class HomeComponent implements OnInit {
       quantity: 1
     }
 
-    this.mainService.addProductToCart(product).subscribe()
+    this.mainService.addProductToCart(product).subscribe(data=> {
+      if(data.success){
+        this.loginService.getCartLength('cart/length')
+      }
+    })
   }
 
   ngOnInit() {
     this.mainService.getAllBooks('books').subscribe((data:any)=>{
       this.books = data.data
     })
-    
+    this.loginService.getCartLength('cart/length')
   }
 
 }

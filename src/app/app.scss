@@ -1,11 +1,11 @@
 .router-container {
     position: relative;
 }
+
 .nav {
     display: flex;
     width: 250px;
     background-color: rgba(255, 248, 220, 0.9);
-    
     .nav-wrap {
         display: flex;
         justify-content: space-between;
@@ -61,27 +61,28 @@
         font-weight: 600;
         line-height: 100%;
         cursor: pointer;
-
         div:nth-of-type(2) {
             margin-top: 2px;
             margin-left: 5px;
         }
     }
 }
+
 .logo-wrap {
     display: flex;
 }
+
 .side-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-  }
+}
 
-  .header-wrap {
-      position: relative;
-  }
+.header-wrap {
+    position: relative;
+}
 
 .sidenav {
     position: absolute;
@@ -93,24 +94,24 @@
 }
 
 .users-window {
-    margin: 0 30px 0 0; 
-    display: flex; 
-    justify-content: space-between; 
+    margin: 0 30px 0 0;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    .user-bag{
+    .user-bag {
         margin-right: 30px;
         cursor: pointer;
         i {
-          font-size: 40px;
-          color: rgb(235, 30, 40);
+            font-size: 40px;
+            color: rgb(235, 30, 40);
         }
     }
     .user-bag-empty {
         margin-right: 30px;
         cursor: pointer;
         i {
-          font-size: 40px;
-          color: rgb(37, 35, 35);
+            font-size: 40px;
+            color: rgb(37, 35, 35);
         }
     }
     .profile-user {
@@ -135,17 +136,16 @@
 }
 
 // .users-window 
-
 .users-window img:hover {
     cursor: pointer;
 }
 
 header {
-    width: 100%; 
-    height: 100px; 
-    background-color: #00BFFF; 
-    display: flex; 
-    align-items: center; 
+    width: 100%;
+    height: 100px;
+    background-color: #00BFFF;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -154,18 +154,27 @@ h1 {
 }
 
 .login {
-    margin: 0 30px 0 0; 
-    display: flex; 
-    justify-content: space-between; 
+    margin: 0 30px 0 0;
+    display: flex;
+    justify-content: space-between;
     align-items: center
 }
 
+.profile-user {
+    display: flex;
+    flex-direction: column;
+    span {
+        font-size: 14px;
+        color: black;
+    }
+}
+
 footer {
-    width: 100%; 
-    height: 70px; 
-    background-color: rgba(0, 191, 255, 0.411); 
-    display: flex; 
-    align-items: center; 
+    width: 100%;
+    height: 70px;
+    background-color: rgba(0, 191, 255, 0.411);
+    display: flex;
+    align-items: center;
     justify-content: center;
     // color: lightgray;
 }

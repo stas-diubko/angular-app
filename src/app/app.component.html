@@ -1,12 +1,12 @@
 <div class="app-container">
-        <mat-sidenav-container class="side-container" (backdropClick)="close('backdrop')" >
+    <mat-sidenav-container class="side-container" (backdropClick)="close('backdrop')">
         <mat-sidenav class="nav" #sidenav (keydown.escape)="close('escape')" disableClose>
             <div class="nav-wrap">
                 <div class="nav-item-wrap">
                     <div class="user-data">
                         <img src={{userImage}} alt="user's avatar">
                         <h6>{{userName}}</h6>
-                        <span *ngIf="!changeModal" (click)="onChangeUserData()">Change user's data</span>
+                        <!-- <span *ngIf="!changeModal" (click)="onChangeUserData()">Change user's data</span>
                         <div *ngIf="changeModal" class="data-change">
                             <div>
                                <input type="text" placeholder="Enter new name">
@@ -16,52 +16,52 @@
                             <div class="close-changes">
                                 <i class="material-icons" (click)="onChangeUserData()">clear</i>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div [routerLink]="['/home']" (click)="close('toggle button')">Home</div>
                     <div [routerLink]="['/cart']" (click)="close('toggle button')">Cart</div>
                     <div [routerLink]="['/profile']" (click)="close('toggle button')">Profile</div>
-                       
+
                 </div>
                 <div class="clear">
                     <button mat-button (click)="close('toggle button')"><i class="material-icons">clear</i></button>
                 </div>
-            </div> 
+            </div>
             <div class="logout">
                 <div><span class="back"><i class="material-icons">arrow_back</i></span></div>
                 <div (click)="close('toggle button')">Logout</div>
             </div>
         </mat-sidenav>
-    <mat-sidenav-content>
-                    
-    <div class="router-container" >
-        <header class="header-wrap">
-                <div class="logo-wrap">
-                    <div>
-                        <button mat-button (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+        <mat-sidenav-content>
+
+            <div class="router-container">
+                <header class="header-wrap">
+                    <div class="logo-wrap">
+                        <div>
+                            <button mat-button (click)="sidenav.open()"><i class="material-icons">menu</i></button>
+                        </div>
+                        <h1>Book's Shop</h1>
                     </div>
-                    <h1 >Book's Shop</h1>
-                </div>
-                <div  class="users-window" *ngIf="isLogin" >
-                    <div [ngClass]="{'user-bag': isCartEmpty == true, 'user-bag-empty': isCartEmpty !== true}" [routerLink]="['/cart']" >
-                        <i class="material-icons">
+                    <div class="users-window" *ngIf="isLogin">
+                        <div [ngClass]="{'user-bag': isCartEmpty == true, 'user-bag-empty': isCartEmpty == false}" [routerLink]="['/cart']">
+                            <i class="material-icons">
                             shopping_basket
                         </i>
+                        </div>
+                        <div [routerLink]="['/profile']" class="profile-user">
+                            <img src={{userImage}} alt="user's avatar">
+                            <span>{{userName}}</span>
+                        </div>
                     </div>
-                    <div [routerLink]="['/profile']" class="profile-user">
-                        <img src={{userImage}} alt="user's avatar">
-                        <span>Profile</span>
+                    <div class="login" *ngIf="!isLogin">
+                        <span>Log In</span>
                     </div>
-                </div>
-                <div class="login" *ngIf="!isLogin" >
-                    <span>Log In</span>
-                </div>
-        </header>
-        <router-outlet></router-outlet>
-        <footer>
-            <h3>This is footer</h3>
-        </footer>
-    </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+                </header>
+                <router-outlet></router-outlet>
+                <footer>
+                    <h3>This is footer</h3>
+                </footer>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

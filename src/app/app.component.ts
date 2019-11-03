@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
   public isCartEmpty:boolean = false;
   isLogin: Subscription;
   dataUser: Subscription;
- 
+  cart: Subscription;
+
   constructor (
     private loginService: LoginService
   ){
@@ -30,6 +31,9 @@ export class AppComponent implements OnInit {
      
     })
 
+    this.cart = this.loginService.isCartLength$.subscribe(data=>{
+      this.isCartEmpty = data
+    })
   }
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 

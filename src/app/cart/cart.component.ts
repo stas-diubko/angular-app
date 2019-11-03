@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../shared/services/cart.service';
+import { LoginService } from '../shared/services/login.sevice';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -11,10 +13,18 @@ export class CartComponent implements OnInit {
   public totalCart = 0;
   public checkedAll:boolean = false;
   public countTotalArr = [];
-  public isCheck:boolean = true
+  public isCheck:boolean = true;
+  public isCartLength;
+  
+
   constructor(
-    private cartService: CartService
-  ) { }
+    private cartService: CartService,
+    private loginService: LoginService
+  ) { 
+   
+  }
+
+
 
   checkValueAll() {
     let cartPrice = 0;
@@ -159,11 +169,24 @@ export class CartComponent implements OnInit {
           })
         }
     }), 300)
+   setTimeout(()=> {
+    this.loginService.getCartLength('cart/length')
+   }, 300) 
   }
 
   ngOnInit() {
+
+
+    // setTimeout(()=>console.log(this.products), 1000)
+    
+    // this.cartService.updatedDataTotalCart(this.totalCart);
+    // this.cartService.dataCart.subscribe(data => {
+    //   console.log(data)
+    // })
+    
     this.cartService.getAllProducts('cart').subscribe((data:any)=>{
       this.products = data.data;
     })
+    this.loginService.getCartLength('cart/length')
   }
 }

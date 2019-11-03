@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
@@ -14,13 +14,16 @@ export class LoginService {
   private loginData = new Subject<LoginData>();
   register$ = this.loginData;  
 
-  private token = new Subject<any>() ;
+  private token = new Subject<any>();
   
   token$ = this.token.asObservable();
 
   public isLogin = new Subject<boolean>();
 
   isLogin$ = this.isLogin.asObservable();
+
+  public isCartLength = new BehaviorSubject<any>(false);
+  isCartLength$ = this.isCartLength.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -52,6 +55,14 @@ export class LoginService {
   
   post(url: string, auth): Observable<any>{
     return this.http.post(`${this.urlApi}${url}`, auth)
+  }
+
+  getCartLength(url: string){
+    let token = this.getToken()
+    return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data)=>{
+      this.isCartLength.next(data.data)
+    })
+
   }
   
 }
