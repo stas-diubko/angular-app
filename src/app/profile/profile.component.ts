@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../shared/services/login.sevice';
+import { ProfileService } from '../shared/services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,17 +17,13 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
+    private profileService: ProfileService
   ) {
       this.profileForm = new FormGroup({
         email: new FormControl('', [Validators.email, Validators.required]),
-        name: new FormControl('', [Validators.required]),
-        // currentPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        // newPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        // confirmedNewPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        name: new FormControl('', [Validators.required])
       });
       this.profileForm2 = new FormGroup({
-        // email: new FormControl('', [Validators.email, Validators.required]),
-        // name: new FormControl('', [Validators.required]),
         currentPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
         newPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
         confirmedNewPassword: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -39,13 +36,16 @@ export class ProfileComponent implements OnInit {
          email: this.profileForm.get('email').value,
          name: this.profileForm.get('name').value
        }
-       console.log(data);
+       this.profileService.changeUserData(data)
+      //  console.log(data);
        
      } else {
        console.log('form is not correct');
        
      }
    }
+
+
    onChangePassword() {
      if (this.profileForm2.valid) {
        let data = {
@@ -53,8 +53,24 @@ export class ProfileComponent implements OnInit {
         newPassword: this.profileForm2.get('newPassword').value,
         confirmedNewPassword: this.profileForm2.get('confirmedNewPassword').value
        }
-       console.log(data);
-       
+       if(data.newPassword !== data.confirmedNewPassword) {
+         console.log('new password does not match confirmed');
+       } else {
+        this.profileService.changePassword(data)
+
+        this.profileForm2.controls['currentPassword'].clearValidators()
+        this.profileForm2.controls['newPassword'].clearValidators()
+        this.profileForm2.controls['confirmedNewPassword'].clearValidators()
+
+        this.profileForm2.controls['currentPassword'].reset()
+        this.profileForm2.controls['newPassword'].reset()
+        this.profileForm2.controls['confirmedNewPassword'].reset()
+
+        // this.profileForm2.updateValueAndValidity({ onlySelf: false });
+        // this.profileForm2.controls['currentPassword'].updateValueAndValidity({onlySelf: true})
+        // this.profileForm2.controls['currentPassword'].updateValueAndValidity({ onlySelf: false });
+
+       }
      } else {
       console.log('form is not correct');
       

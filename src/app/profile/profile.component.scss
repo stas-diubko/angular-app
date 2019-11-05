@@ -4,26 +4,22 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    
     form {
         display: flex;
         flex-direction: column;
         width: 700px;
         padding: 10px;
-
-        .header-wrap { 
+        .header-wrap {
             display: flex;
             background-color: rgb(238, 238, 238);
             padding: 5px;
             margin-bottom: 20px;
             box-shadow: 0 0 10px rgba(145, 144, 144, 0.774);
-            
             h3 {
                 font-weight: 500;
                 margin: 10px 0;
             }
         }
-
         .email-wrap {
             .input-wrap {
                 margin-right: 20px;
@@ -31,41 +27,30 @@
             }
         }
     }
-
     .button-wrap {
         width: 700px;
-        
         button {
             background-color: rgb(204, 224, 236);
         }
     }
-
     .accordion-wrap {
         margin: 40px 0;
-        
         .panel-wrap {
             width: 700px;
-
-            form{
+            form {
                 display: flex;
-                flex-direction: row;
-                
+                flex-direction: column;
                 .input-pass-wrap {
                     width: 200px;
                     margin-right: 20px;
                 }
             }
-            
             .button-pass-wrap {
                 // display: flex;
-                
                 button {
                     background-color: rgb(204, 224, 236);
                 }
-        
             }
         }
     }
-
-
 }
