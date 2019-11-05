@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../../shared/services/login.sevice';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   token: string;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private loginService: LoginService,
     private router: Router
   )
@@ -47,6 +49,12 @@ export class LoginComponent implements OnInit {
       if (data.success) {
         this.token = data.data;
         localStorage.setItem('token', `${this.token}`);
+
+        let token = localStorage.getItem('token');
+
+        const decoded = jwt_decode(token) as any;
+
+        this.loginService.getAvatar(`users/avatar/${decoded.id}`)
         
         this.router.navigateByUrl('/home')
       }
@@ -55,7 +63,20 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+    if (this.loginService.isAuthenticated()) {
+      this.router.navigateByUrl('/home')
+    }
+
+    this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
+      console.log(url[0].path);
+      if(url[0].path !== 'login') {
+        this.loginService.isLoginPage(false)
+      } else {
+        this.loginService.isLoginPage(true)
+      }
+    })
+    
+    // console.log(this.loginService.isAuthenticated());
     
   }
 

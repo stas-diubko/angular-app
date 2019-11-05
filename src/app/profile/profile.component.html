@@ -1,4 +1,62 @@
 <div class="profile-wrap">
-    <p>profile works!</p>
+
+    <form [formGroup]="profileForm">
+        <div class="header-wrap">
+            <h3>Edit profile</h3>
+        </div>
+        <div class="email-wrap">
+            <mat-form-field class="input-wrap">
+                <input matInput placeholder="Email" formControlName="email" value={{email}}>
+                <mat-error *ngIf="profileForm.get('email').hasError('required')">
+                    Invalid Email! 
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-wrap">
+                <input matInput placeholder="Name" formControlName="name" value={{name}}>
+                <mat-error *ngIf="profileForm.get('name').hasError('required')">
+                    Name must be at least 3 characters! 
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="button-wrap">
+        <button mat-raised-button (click)="onChangeData()">Save</button>
+    </div>
+
+    <mat-accordion class="accordion-wrap">
+            <mat-expansion-panel class="panel-wrap">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Reset password
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                <form [formGroup]="profileForm2">
+                    <mat-form-field class="input-pass-wrap">
+                        <input matInput type='password' placeholder="Current password" formControlName="currentPassword">
+                        <mat-error *ngIf="profileForm2.get('currentPassword').hasError('required')">
+                            Password must be at least 3 characters! 
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="input-pass-wrap">
+                        <input matInput type='password' placeholder="New password" formControlName="newPassword">
+                        <mat-error *ngIf="profileForm2.get('newPassword').hasError('required')">
+                            Password must be at least 3 characters! 
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="input-pass-wrap">
+                        <input matInput type='password' placeholder="Confirm new password" formControlName="confirmedNewPassword">
+                        <mat-error *ngIf="profileForm2.get('confirmedNewPassword').hasError('required')">
+                            Password must be at least 3 characters! 
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+
+                <div class="button-pass-wrap">
+                    <button mat-raised-button class="button-pass" (click)="onChangePassword()">Save</button>
+                </div>
+            </mat-expansion-panel>
+    </mat-accordion>
+
 </div>
 

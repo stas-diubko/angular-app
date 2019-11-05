@@ -33,4 +33,12 @@ export class CartService {
         let token = this.loginService.getToken();
         return this.http.get<any>(`${this.urlApi}${url}/${token.id}`)
     }
+    onPay() {
+        // console.log('test');
+        
+        // return this.http.get<any>(`https://sandbox.api.barclays:443/open-banking/v3.1/sandbox/pisp`).subscribe((data)=>{
+        //     console.log(data);
+            
+        //   })
+    }
 }

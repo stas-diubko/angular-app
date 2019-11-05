@@ -6,17 +6,6 @@
                     <div class="user-data">
                         <img src={{userImage}} alt="user's avatar">
                         <h6>{{userName}}</h6>
-                        <!-- <span *ngIf="!changeModal" (click)="onChangeUserData()">Change user's data</span>
-                        <div *ngIf="changeModal" class="data-change">
-                            <div>
-                               <input type="text" placeholder="Enter new name">
-                                <input type="file">
-                                <button mat-raised-button >Apply</button> 
-                            </div>
-                            <div class="close-changes">
-                                <i class="material-icons" (click)="onChangeUserData()">clear</i>
-                            </div>
-                        </div> -->
                     </div>
                     <div [routerLink]="['/home']" (click)="close('toggle button')">Home</div>
                     <div [routerLink]="['/cart']" (click)="close('toggle button')">Cart</div>
@@ -29,7 +18,7 @@
             </div>
             <div class="logout">
                 <div><span class="back"><i class="material-icons">arrow_back</i></span></div>
-                <div (click)="close('toggle button')">Logout</div>
+                <div (click)="close('toggle button')" (click)="onLogOut()">Logout</div>
             </div>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -37,7 +26,7 @@
             <div class="router-container">
                 <header class="header-wrap">
                     <div class="logo-wrap">
-                        <div>
+                        <div *ngIf="isLogin">
                             <button mat-button (click)="sidenav.open()"><i class="material-icons">menu</i></button>
                         </div>
                         <h1>Book's Shop</h1>
@@ -53,9 +42,9 @@
                             <span>{{userName}}</span>
                         </div>
                     </div>
-                    <div class="login" *ngIf="!isLogin">
-                        <span>Log In</span>
-                    </div>
+                        <div [routerLink]="['/auth/login']" class="login" *ngIf="isLoginPage && !isLogin">
+                            <span>Log In</span>
+                        </div>
                 </header>
                 <router-outlet></router-outlet>
                 <footer>

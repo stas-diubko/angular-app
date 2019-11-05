@@ -38,9 +38,9 @@ export class HeaderComponent implements OnInit {
       
     this.loginService.getToken();
 
-    this.loginService.getAvatar(`users/avatar/${decoded.id}`).subscribe((data:any)=>{
-      this.userImage = data.data
-    })
+    // this.loginService.getAvatar(`users/avatar/${decoded.id}`).subscribe((data:any)=>{
+    //   this.userImage = data.data
+    // })
     
   }
 

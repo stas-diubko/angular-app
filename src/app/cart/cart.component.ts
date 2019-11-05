@@ -24,8 +24,6 @@ export class CartComponent implements OnInit {
    
   }
 
-
-
   checkValueAll() {
     let cartPrice = 0;
     this.checkedAll = !this.checkedAll;
@@ -174,8 +172,12 @@ export class CartComponent implements OnInit {
    }, 300) 
   }
 
-  ngOnInit() {
+  onPay() {
+    this.cartService.onPay()
+    
+  }
 
+  ngOnInit() {
 
     // setTimeout(()=>console.log(this.products), 1000)
     
@@ -187,6 +189,8 @@ export class CartComponent implements OnInit {
     this.cartService.getAllProducts('cart').subscribe((data:any)=>{
       this.products = data.data;
     })
+
     this.loginService.getCartLength('cart/length')
+
   }
 }

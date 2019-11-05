@@ -15,24 +15,36 @@ export class AppComponent implements OnInit {
   public userImage:string = '';
   public changeModal:boolean = false;
   public isCartEmpty:boolean = false;
-  isLogin: Subscription;
+  public isLogin:boolean = false;
+  public isLoginPage:any = '';
+  getIsLogin: Subscription;
   dataUser: Subscription;
   cart: Subscription;
+  avatar: Subscription;
+  loginPage: Subscription;
 
   constructor (
     private loginService: LoginService
   ){
+    this.loginPage = this.loginService.onLoginPage$.subscribe(data => {
+      this.isLoginPage = data;
+    })
+
     this.dataUser = this.loginService.token$.subscribe(data => {
       this.userName = data.name     
       this.email = data.email
     });
     
-    this.isLogin = this.loginService.isLogin.subscribe(data => {
-     
+    this.getIsLogin = this.loginService.isLogin.subscribe(data => {
+     this.isLogin = data;
     })
 
     this.cart = this.loginService.isCartLength$.subscribe(data=>{
       this.isCartEmpty = data
+    })
+
+    this.avatar = this.loginService.avatar$.subscribe(data=>{
+      this.userImage = data;
     })
   }
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
@@ -48,16 +60,25 @@ export class AppComponent implements OnInit {
     this.changeModal = !this.changeModal
   }
 
+  onLogOut() {
+    localStorage.removeItem('token');
+    this.loginService.getToken();
+  }
+
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   
+  OnChanges() {
+
+  }
+
   ngOnInit(){
+    
+    
     let token = localStorage.getItem('token');
     const decoded = jwt_decode(token) as any;
     
     this.loginService.getToken();
-    this.loginService.getAvatar(`users/avatar/${decoded.id}`).subscribe((data:any)=>{
-      this.userImage = data.data
-    })
-    
+    this.loginService.getAvatar(`users/avatar/${decoded.id}`)
+
   }
 }

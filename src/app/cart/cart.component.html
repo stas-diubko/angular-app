@@ -35,8 +35,8 @@
             </div>
             <div id={{product.bookId}} (click)="onRemove($event)" class="remove">
                 <i class="material-icons">
-                        delete_forever
-                    </i>
+                    delete_forever
+                </i>
             </div>
         </div>
     </div>
@@ -47,6 +47,6 @@
                 Total cart: <span>{{totalCart}} $</span>
             </div>
         </div>
-        <button mat-raised-button>Buy</button>
+        <button mat-raised-button (click)="onPay()">Buy</button>
     </div>
 </div>

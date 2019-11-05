@@ -25,13 +25,25 @@ export class LoginService {
   public isCartLength = new BehaviorSubject<any>(false);
   isCartLength$ = this.isCartLength.asObservable();
 
+  public avatar = new Subject<any>();
+  avatar$ = this.avatar.asObservable();
+
+  public onLoginPage = new BehaviorSubject<any>(false);
+  onLoginPage$ = this.avatar.asObservable();
+
   constructor(private http: HttpClient) { }
 
-  getAvatar(url: string): Observable<string> {
-    return this.http.get<any>(`${this.urlApi}${url}`)
+  isLoginPage(data) {
+    this.onLoginPage.next(data)
+  }
+
+  getAvatar(url: string){
+    return this.http.get<any>(`${this.urlApi}${url}`).subscribe((data)=>{
+      this.avatar.next(data.data)
+    })
   } 
 
-  public isAuthenticated(): boolean {
+  public isAuthenticated(): any{
     const token = localStorage.getItem('token');
     if (!token) {
         return false
@@ -46,7 +58,9 @@ export class LoginService {
       this.token.next(decoded);
       this.isLogin.next(true)
       return decoded;
-    } 
+    } else {
+      this.isLogin.next(false)
+    }
   }
 
   setloginState(loginData: LoginData){
