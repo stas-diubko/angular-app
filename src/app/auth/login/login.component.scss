@@ -1,0 +1,36 @@
+.login-wrap {
+    min-height: 739px;
+    .link-wrap {
+        font-size: 14px;
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        .link-to-register {
+            display: flex; 
+            align-items: center; 
+            color: blue;
+            margin-right: 200px;
+        }
+        .forgot-password {
+            color: blue;
+            margin-top: 10px;
+            margin-right: 244px;
+            .reset {
+                color: brown;
+                cursor: pointer;
+                margin-left: 10px
+            }
+        }
+    }
+
+}
+
+.dialog-wrap {
+    margin:10px;
+    
+    background-color: coral;
+}
+
+.email-wrap {
+    width: 280px;
+}

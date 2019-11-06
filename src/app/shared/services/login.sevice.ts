@@ -78,5 +78,19 @@ export class LoginService {
     })
 
   }
-  
+
+  resetPassword(email: string){
+    let body = {
+      email: email
+    }
+    return this.http.put<any>(`${this.urlApi}users/reset-password`, body).subscribe((data)=>{
+      console.log(data);
+      
+    })
+  }
+
+  onResetPassword(data:object, id:string) {
+    return this.http.put<any>(`${this.urlApi}users/reset-user-password/${id}`, data)
+  }
+  // reset-user-password
 }

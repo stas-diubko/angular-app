@@ -15,7 +15,8 @@
         </mat-form-field>
         <button mat-raised-button style="width: 110px" (click)="onLogin()">Login</button>
     </form>
-    <div style="display: flex; justify-content: center; ">
-        <div style="display: flex; align-items: center; color: blue">Don't have an account? <span style="cursor: pointer; color: brown; margin-right: 170px; margin-left: 10px" [routerLink]="['/auth/registration']">Go to registration form </span> </div>
+    <div class="link-wrap">
+        <div class="link-to-register" >Don't have an account? <span style="cursor: pointer; color: brown; margin-left: 10px" [routerLink]="['/auth/registration']">Go to registration form </span> </div>
+        <div class="forgot-password">Forgot your password?<span class="reset" (click)="openDialog()">Reset password</span></div>
     </div>
 </div>

@@ -72,12 +72,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-    
-    
     let token = localStorage.getItem('token');
     const decoded = jwt_decode(token) as any;
     
     this.loginService.getToken();
+    // console.log(decoded);
+    
     this.loginService.getAvatar(`users/avatar/${decoded.id}`)
 
   }

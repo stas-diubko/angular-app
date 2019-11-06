@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../../shared/services/login.sevice';
 import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import * as jwt_decode from "jwt-decode";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -18,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   )
   
   { 
@@ -35,10 +42,15 @@ export class LoginComponent implements OnInit {
     
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogReset, {
+      width: '350px',
+    });
 
+    dialogRef.afterClosed().subscribe();
+  }
 
   onLogin () {
-
     let loginData = {
       username: this.loginForm.value.email,
       password: this.loginForm.value.password
@@ -75,9 +87,40 @@ export class LoginComponent implements OnInit {
         this.loginService.isLoginPage(true)
       }
     })
-    
-    // console.log(this.loginService.isAuthenticated());
+
+  }
+
+}
+
+@Component({
+  selector: 'dialog-reset',
+  templateUrl: 'dialog.reset.html',
+  styleUrls: ['./login.component.scss']
+
+})
+export class DialogReset {
+  public resetForm: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogReset>,
+    private loginService: LoginService,
+    @Inject(MAT_DIALOG_DATA)  public data: DialogData
+    ) {
+      this.resetForm = new FormGroup({
+        email: new FormControl('', [Validators.email, Validators.required])
+      })
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  sendEmail() {
+    let email = this.resetForm.value.email
+    this.loginService.resetPassword(email)
+    // console.log(email);
     
   }
+
 
 }

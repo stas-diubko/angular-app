@@ -7,6 +7,7 @@ import { AboutBookComponent } from './details/details.component';
 import { AuthGuard as AuthGuard } from '../app/shared/guards/auth.guard'
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "auth", pathMatch: "full" },
@@ -36,8 +37,6 @@ const routes: Routes = [
     path: "profile",
     component: ProfileComponent
   }
-
-
 ];
 
 @NgModule({
