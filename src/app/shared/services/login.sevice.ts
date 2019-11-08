@@ -83,14 +83,10 @@ export class LoginService {
     let body = {
       email: email
     }
-    return this.http.put<any>(`${this.urlApi}users/reset-password`, body).subscribe((data)=>{
-      console.log(data);
-      
-    })
+    return this.http.put<any>(`${this.urlApi}login/reset-password`, body);
   }
 
   onResetPassword(data:object, id:string) {
-    return this.http.put<any>(`${this.urlApi}users/reset-user-password/${id}`, data)
+    return this.http.put<any>(`${this.urlApi}login/reset-user-password/${id}`, data)
   }
-  // reset-user-password
 }

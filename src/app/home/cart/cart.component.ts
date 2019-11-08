@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../shared/services/cart.service';
-import { LoginService } from '../shared/services/login.sevice';
+import { CartService } from '../../shared/services/cart.service';
+import { LoginService } from '../../shared/services/login.sevice';
 import { Subscription } from 'rxjs';
 
 @Component({

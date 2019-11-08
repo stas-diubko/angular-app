@@ -7,9 +7,9 @@
                         <img src={{userImage}} alt="user's avatar">
                         <h6>{{userName}}</h6>
                     </div>
-                    <div [routerLink]="['/home']" (click)="close('toggle button')">Home</div>
-                    <div [routerLink]="['/cart']" (click)="close('toggle button')">Cart</div>
-                    <div [routerLink]="['/profile']" (click)="close('toggle button')">Profile</div>
+                    <div [routerLink]="['/home/products']" (click)="close('toggle button')">Home</div>
+                    <div [routerLink]="['/home/cart']" (click)="close('toggle button')">Cart</div>
+                    <div [routerLink]="['/home/profile']" (click)="close('toggle button')">Profile</div>
 
                 </div>
                 <div class="clear">
@@ -32,12 +32,12 @@
                         <h1>Book's Shop</h1>
                     </div>
                     <div class="users-window" *ngIf="isLogin">
-                        <div [ngClass]="{'user-bag': isCartEmpty == true, 'user-bag-empty': isCartEmpty == false}" [routerLink]="['/cart']">
+                        <div [ngClass]="{'user-bag': isCartEmpty == true, 'user-bag-empty': isCartEmpty == false}" [routerLink]="['/home/cart']">
                             <i class="material-icons">
                             shopping_basket
                         </i>
                         </div>
-                        <div [routerLink]="['/profile']" class="profile-user">
+                        <div [routerLink]="['/home/profile']" class="profile-user">
                             <img src={{userImage}} alt="user's avatar">
                             <span>{{userName}}</span>
                         </div>
@@ -47,6 +47,7 @@
                         </div>
                 </header>
                 <router-outlet></router-outlet>
+                
                 <footer>
                     <h3>This is footer</h3>
                 </footer>

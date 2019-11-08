@@ -3,6 +3,8 @@ import { LoginService } from './shared/services/login.sevice';
 import * as jwt_decode from "jwt-decode";
 import { Subscription } from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MainService } from './shared/services/main.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +26,9 @@ export class AppComponent implements OnInit {
   loginPage: Subscription;
 
   constructor (
-    private loginService: LoginService
+    private loginService: LoginService,
+    private mainService: MainService,
+    private _snackBar: MatSnackBar
   ){
     this.loginPage = this.loginService.onLoginPage$.subscribe(data => {
       this.isLoginPage = data;
@@ -67,18 +71,10 @@ export class AppComponent implements OnInit {
 
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   
-  OnChanges() {
-
-  }
-
   ngOnInit(){
     let token = localStorage.getItem('token');
     const decoded = jwt_decode(token) as any;
-    
     this.loginService.getToken();
-    // console.log(decoded);
-    
-    this.loginService.getAvatar(`users/avatar/${decoded.id}`)
-
+    this.loginService.getAvatar(`users/avatar/${decoded.id}`);
   }
 }

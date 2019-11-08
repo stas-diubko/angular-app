@@ -4,6 +4,7 @@ import { LoginService } from '../../shared/services/login.sevice';
 import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import * as jwt_decode from "jwt-decode";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MainService } from 'src/app/shared/services/main.service';
 
 export interface DialogData {
   animal: string;
@@ -68,7 +69,7 @@ export class LoginComponent implements OnInit {
 
         this.loginService.getAvatar(`users/avatar/${decoded.id}`)
         
-        this.router.navigateByUrl('/home')
+        this.router.navigateByUrl('/home/products')
       }
       
     })
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.loginService.isAuthenticated()) {
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/home/products')
     }
 
     this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
@@ -104,6 +105,7 @@ export class DialogReset {
   constructor(
     public dialogRef: MatDialogRef<DialogReset>,
     private loginService: LoginService,
+    public mainService: MainService,
     @Inject(MAT_DIALOG_DATA)  public data: DialogData
     ) {
       this.resetForm = new FormGroup({
@@ -117,9 +119,17 @@ export class DialogReset {
 
   sendEmail() {
     let email = this.resetForm.value.email
-    this.loginService.resetPassword(email)
-    // console.log(email);
-    
+    if (this.resetForm.valid) {
+        this.dialogRef.close();
+        this.loginService.resetPassword(email).subscribe((data)=>{
+        if(data.success) {
+          this.mainService.openSnackBar(data.message, null)
+        } else {
+          this.mainService.openSnackBar(data.message, null)
+        }
+      })
+    }
+
   }
 
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { DetailsService } from '../shared/services/details.service';
-import { LoginService } from '../shared/services/login.sevice';
-import { MainService } from '../shared/services/main.service';
+import { DetailsService } from '../../shared/services/details.service';
+import { LoginService } from '../../shared/services/login.sevice';
+import { MainService } from '../../shared/services/main.service';
 
 @Component({
   selector: 'app-details',

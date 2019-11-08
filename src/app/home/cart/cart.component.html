@@ -20,7 +20,7 @@
             <img src={{product.bookImage}} alt={{product.title}}>
         </div>
         <div class="cart-description">
-            <h3 [routerLink]="['/books', product.bookId]">Title: {{product.title}}</h3>
+            <h3 [routerLink]="['/home/books', product.bookId]">Title: {{product.title}}</h3>
             <h4>Author: {{product.author}}</h4>
             <div class="price">
                 Price: <span>{{product.price}} $</span>

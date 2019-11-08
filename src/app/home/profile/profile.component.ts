@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginService } from '../shared/services/login.sevice';
-import { ProfileService } from '../shared/services/profile.service';
+import { LoginService } from '../../shared/services/login.sevice';
+import { ProfileService } from '../../shared/services/profile.service';
+import { MainService } from '../../shared/services/main.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,9 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public mainService: MainService,
+    private router: Router
   ) {
       this.profileForm = new FormGroup({
         email: new FormControl('', [Validators.email, Validators.required]),
@@ -36,15 +40,11 @@ export class ProfileComponent implements OnInit {
          email: this.profileForm.get('email').value,
          name: this.profileForm.get('name').value
        }
-       this.profileService.changeUserData(data)
-      //  console.log(data);
-       
+       this.profileService.changeUserData(data);
      } else {
-       console.log('form is not correct');
-       
+       this.mainService.openSnackBar('Form is not correct', null);
      }
    }
-
 
    onChangePassword() {
      if (this.profileForm2.valid) {
@@ -54,17 +54,17 @@ export class ProfileComponent implements OnInit {
         confirmedNewPassword: this.profileForm2.get('confirmedNewPassword').value
        }
        if(data.newPassword !== data.confirmedNewPassword) {
-         console.log('new password does not match confirmed');
+        this.mainService.openSnackBar('New password does not match confirmed', null);
        } else {
-        this.profileService.changePassword(data)
+          this.profileService.changePassword(data)
 
-        this.profileForm2.controls['currentPassword'].clearValidators()
-        this.profileForm2.controls['newPassword'].clearValidators()
-        this.profileForm2.controls['confirmedNewPassword'].clearValidators()
+          this.profileForm2.controls['currentPassword'].clearValidators()
+          this.profileForm2.controls['newPassword'].clearValidators()
+          this.profileForm2.controls['confirmedNewPassword'].clearValidators()
 
-        this.profileForm2.controls['currentPassword'].reset()
-        this.profileForm2.controls['newPassword'].reset()
-        this.profileForm2.controls['confirmedNewPassword'].reset()
+          this.profileForm2.controls['currentPassword'].reset()
+          this.profileForm2.controls['newPassword'].reset()
+          this.profileForm2.controls['confirmedNewPassword'].reset()
 
         // this.profileForm2.updateValueAndValidity({ onlySelf: false });
         // this.profileForm2.controls['currentPassword'].updateValueAndValidity({onlySelf: true})
@@ -72,13 +72,14 @@ export class ProfileComponent implements OnInit {
 
        }
      } else {
-      console.log('form is not correct');
-      
-    }
+        this.mainService.openSnackBar('form is not correct', null);
+      }
    }
 
-
   ngOnInit() {
+    if (!this.loginService.isAuthenticated()) {
+      this.router.navigateByUrl('/home/products')
+    }
     this.loginService.getCartLength('cart/length')
     let userData = this.loginService.getToken()
     this.name = userData.name;

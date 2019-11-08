@@ -10,12 +10,10 @@ import { CustomHttpInterceptorService } from './shared/interceptors/interceptor'
 import RegistrationService from './shared/services/registration.service';
 import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
-import { AboutBookComponent } from './details/details.component';
+import { AboutBookComponent } from './home/details/details.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { CartComponent } from './cart/cart.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CartComponent } from './home/cart/cart.component';
+import { ProfileComponent } from './home/profile/profile.component';
 
 
 
@@ -23,11 +21,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
-    AboutBookComponent,
     SidenavComponent,
-    CartComponent,
-    ProfileComponent
   ],
   imports: [
     BrowserModule,

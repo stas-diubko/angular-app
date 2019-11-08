@@ -13,7 +13,7 @@
             <div class="description-wrap">
                 <h4>Description</h4>
                 <p class="description">{{book.description}} </p>
-                <div class="aom" ><button class="see-more" id={{book._id}} mat-raised-button  style="width: 110px" [routerLink]="['/books', book._id]" (click)="showDetails($event)">See more</button><div>Price: <span class="book-price">{{book.price}} $</span></div></div>
+                <div class="aom" ><button class="see-more" id={{book._id}} mat-raised-button  style="width: 110px" [routerLink]="['/home/books', book._id]" (click)="showDetails($event)">See more</button><div>Price: <span class="book-price">{{book.price}} $</span></div></div>
                 <button id={{book._id}} mat-raised-button color="accent" style="width: 110px" (click)="addProduct($event)">Add to Cart</button>
             </div>     
         </div>
