@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener, Directive } from '@angular/core';
+import { Component, OnInit, HostListener, Directive, Inject } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { LoginService } from '../../shared/services/login.sevice';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -20,21 +21,17 @@ export class CartComponent implements OnInit {
   public countTotalArr = [];
   public isCheck:boolean = true;
   public isCartLength;
-  
+  public onTop: number = 0;
 
   constructor(
     private cartService: CartService,
-    private loginService: LoginService
-  ) { 
+    private loginService: LoginService,
+    @Inject(DOCUMENT) private document: Document,
    
+  ) { 
+
   }
 
-  
-  @HostListener("scroll", ['$event']) onScroll(event) {
-    console.log(event)
-
-    console.log('scroll')
-  }
 
   checkValueAll() {
     let cartPrice = 0;
@@ -191,6 +188,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
+    window.addEventListener('scroll', this.scroll, true); //third parameter
     // setTimeout(()=>console.log(this.products), 1000)
     
     // this.cartService.updatedDataTotalCart(this.totalCart);
@@ -205,4 +203,13 @@ export class CartComponent implements OnInit {
     this.loginService.getCartLength('cart/length')
 
   }
+
+  ngOnDestroy() {
+      window.removeEventListener('scroll', this.scroll, true);
+  }
+
+  scroll = (event:any): void => {
+    const number = event.srcElement.scrollTop;
+    this.onTop = number;
+  };
 }

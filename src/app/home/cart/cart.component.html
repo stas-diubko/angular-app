@@ -1,4 +1,4 @@
-<div class="cart-wrap" (scroll)="onScroll($event)" scroller>
+<div class="cart-wrap" (scroll)="onScroll()">
     <div *ngIf="products.length == 0" class="empty-cart"><span>Cart is empty :(</span></div>
     <div *ngIf="products.length !== 0" class="cart-head">
         <span>Cart ({{products.length}} products)</span>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="products.length !== 0" class="buy">
+    <div *ngIf="products.length !== 0" class="buy" [ngClass]="{'buy': onTop < 150, 'buy-move': onTop > 150}">
         <div class="total-cart">
             <h3>Order price:</h3>
             <div>
