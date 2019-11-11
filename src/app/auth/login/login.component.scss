@@ -1,20 +1,38 @@
 .login-wrap {
     min-height: 739px;
+    padding-top: 50px;
+    form {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto 20px;
+        max-width: 450px;
+        h3 {
+            background-color: rgb(238, 238, 238);
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            padding: 10px 5px;
+            box-shadow: 0 0 10px rgba(145, 144, 144, 0.774);
+        }
+        button {
+            width: 70px;
+        }
+    }
     .link-wrap {
         font-size: 14px;
-        display: flex; 
+        display: flex;
         flex-direction: column;
         align-items: center;
         .link-to-register {
-            display: flex; 
-            align-items: center; 
+            display: flex;
+            align-items: center;
             color: blue;
-            margin-right: 200px;
+            margin-right: 160px;
         }
         .forgot-password {
             color: blue;
             margin-top: 10px;
-            margin-right: 244px;
+            margin-right: 204px;
             .reset {
                 color: brown;
                 cursor: pointer;
@@ -22,12 +40,10 @@
             }
         }
     }
-
 }
 
 .dialog-wrap {
-    margin:10px;
-    
+    margin: 10px;
     background-color: coral;
 }
 

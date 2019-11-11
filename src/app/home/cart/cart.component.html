@@ -1,4 +1,4 @@
-<div class="cart-wrap">
+<div class="cart-wrap" (scroll)="onScroll($event)" scroller>
     <div *ngIf="products.length == 0" class="empty-cart"><span>Cart is empty :(</span></div>
     <div *ngIf="products.length !== 0" class="cart-head">
         <span>Cart ({{products.length}} products)</span>

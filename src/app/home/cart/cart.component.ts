@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Directive } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { LoginService } from '../../shared/services/login.sevice';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
+
+@Directive({
+  selector: '[scroller]'
+})
+
 export class CartComponent implements OnInit {
   public products = [];
   public totalCart = 0;
@@ -22,6 +27,13 @@ export class CartComponent implements OnInit {
     private loginService: LoginService
   ) { 
    
+  }
+
+  
+  @HostListener("scroll", ['$event']) onScroll(event) {
+    console.log(event)
+
+    console.log('scroll')
   }
 
   checkValueAll() {

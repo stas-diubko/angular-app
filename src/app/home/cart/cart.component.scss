@@ -154,3 +154,43 @@
         }
     }
 }
+
+@media (max-width: 1160px) {
+    .cart-wrap {
+        .cart-item {
+            width: 300px;
+        }
+        .buy {
+            width: 200px;
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .cart-wrap {
+        .buy {
+            margin: 161px 40px 0 0;
+            width: 200px;
+        }
+    }
+}
+
+@media (max-width: 880px) {
+    .cart-wrap {
+        .cart-item {
+            width: 270px;
+            .cart-description {
+                margin: 5px 0 0 5px;
+                .calculation {
+                    button {
+                        width: 25px;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        .buy {
+            width: 160px;
+        }
+    }
+}

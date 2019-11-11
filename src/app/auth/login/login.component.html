@@ -1,5 +1,5 @@
 <div class="login-wrap">
-    <form [formGroup]="loginForm" style="display:flex; flex-direction:column; margin: 60px auto 20px; width:450px; border: 1px solid gray; border-radius: 20px; padding: 0 30px 30px; background-color: white">
+    <form [formGroup]="loginForm">
         <h3>Log In</h3>
         <mat-form-field>
             <input matInput placeholder="Email" formControlName="email">
@@ -13,10 +13,10 @@
                 Min string length is 3!
             </mat-error>
         </mat-form-field>
-        <button mat-raised-button style="width: 110px" (click)="onLogin()">Login</button>
+        <button mat-raised-button (click)="onLogin()">Login</button>
     </form>
     <div class="link-wrap">
-        <div class="link-to-register" >Don't have an account? <span style="cursor: pointer; color: brown; margin-left: 10px" [routerLink]="['/auth/registration']">Go to registration form </span> </div>
+        <div class="link-to-register">Don't have an account? <span style="cursor: pointer; color: brown; margin-left: 10px" [routerLink]="['/auth/registration']">Go to registration form </span> </div>
         <div class="forgot-password">Forgot your password?<span class="reset" (click)="openDialog()">Reset password</span></div>
     </div>
 </div>

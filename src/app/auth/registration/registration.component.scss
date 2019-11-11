@@ -1,0 +1,22 @@
+    .registration-wrap {
+        height: 739px;
+        padding-top: 50px;
+        form {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto 20px;
+            max-width: 450px;
+            h3 {
+                background-color: rgb(238, 238, 238);
+                margin: 0;
+                height: 30px;
+                line-height: 30px;
+                padding: 10px 5px;
+                box-shadow: 0 0 10px rgba(145, 144, 144, 0.774);
+            }
+            button {
+                width: 90px;
+                padding: 0;
+            }
+        }
+    }
