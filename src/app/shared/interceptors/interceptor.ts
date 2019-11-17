@@ -3,10 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MainService } from '../services/main.service';
 
 @Injectable()
 export class CustomHttpInterceptorService implements HttpInterceptor {
-    constructor(private router: Router, ) { }
+    constructor(
+        private router: Router,
+        public mainService: MainService
+
+    ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let token = localStorage.getItem('token')
         request = request.clone({
@@ -26,11 +31,7 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
                     let caller = error.message
                     this.router.navigate(["serverError", caller])
                 }
-                let data = {};
-                data = {
-                    reason: error.message,
-                    status: error.status
-                };
+                this.mainService.openSnackBar(error.error, null)
                 return throwError(error);
             })
         );

@@ -3,6 +3,7 @@ import { CartService } from '../../shared/services/cart.service';
 import { LoginService } from '../../shared/services/login.sevice';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { MainService } from 'src/app/shared/services/main.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,8 +23,10 @@ export class CartComponent implements OnInit {
   public isCheck:boolean = true;
   public isCartLength;
   public onTop: number = 0;
+  public isCartEmpty:boolean = false;
 
   constructor(
+    private mainService: MainService,
     private cartService: CartService,
     private loginService: LoginService,
     @Inject(DOCUMENT) private document: Document,
@@ -164,6 +167,9 @@ export class CartComponent implements OnInit {
                 data = data + +this.products[g].price * this.products[g].quantity;
           }
           this.cartService.updatedDataTotalCart(data);
+          if (this.products.length == 0) {
+            this.isCartEmpty = true;
+          }
           this.cartService.dataCart.subscribe(data => {
             this.totalCart = data;
           })
@@ -171,6 +177,9 @@ export class CartComponent implements OnInit {
           let data = 0;
           this.countTotalArr = [];
           this.cartService.updatedDataTotalCart(data);
+          if (this.products.length == 0) {
+            this.isCartEmpty = true;
+          }
           this.cartService.dataCart.subscribe(data => {
             this.totalCart = data;
           })
@@ -179,7 +188,8 @@ export class CartComponent implements OnInit {
    setTimeout(()=> {
     this.loginService.getCartLength('cart/length')
    }, 300) 
-  }
+
+  } 
 
   onPay() {
     this.cartService.onPay()
@@ -187,17 +197,17 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    window.addEventListener('scroll', this.scroll, true); //third parameter
-    // setTimeout(()=>console.log(this.products), 1000)
-    
-    // this.cartService.updatedDataTotalCart(this.totalCart);
-    // this.cartService.dataCart.subscribe(data => {
-    //   console.log(data)
-    // })
+    this.mainService.onLoadSpiner(true);
+    window.addEventListener('scroll', this.scroll, true);
     
     this.cartService.getAllProducts('cart').subscribe((data:any)=>{
+    this.mainService.onLoadSpiner(false);
       this.products = data.data;
+      if (this.products.length == 0) {
+        this.isCartEmpty = true;
+      }
+    }, error => {
+      this.mainService.onLoadSpiner(false);
     })
 
     this.loginService.getCartLength('cart/length')

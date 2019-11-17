@@ -38,19 +38,20 @@ export class RegistrationComponent implements OnInit {
       }
 
       this.registrationService.post('users/register', user).subscribe(
+        
         (data: any)=>{
           const loginData = {
             email: user.email,
             password: user.password
           }
-        
+        console.log(data)
           this.router.navigateByUrl('/').then(x => {
             this.loginService.setloginState(loginData)
           })
         },
-        // (error: any)=>{
-        //   this.serverError = error.error;  
-        // }
+        (error: any)=>{
+          console.log(error.error)
+        }
       )
     }
   }
@@ -58,6 +59,7 @@ export class RegistrationComponent implements OnInit {
   
 
   ngOnInit() {
+    this.loginService.isLoginPage(true);
     if (this.loginService.isAuthenticated()) {
       this.router.navigateByUrl('/home')
     }

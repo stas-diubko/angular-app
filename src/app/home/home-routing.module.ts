@@ -5,6 +5,7 @@ import { AboutBookComponent } from './details/details.component';
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home.component';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -14,8 +15,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
         { path: "", redirectTo: "products", pathMatch: "full" },
-        { path: "products", component: ProductsComponent,
-        // canActivate: [AuthGuard] 
+        { path: "products", component: ProductsComponent
         }, 
         {
             path: "books/:id",
@@ -23,11 +23,14 @@ const routes: Routes = [
         },
         {
             path: "cart",
-            component: CartComponent
+            component: CartComponent,
+            canActivate: [AuthGuard]
         },
         {
             path: "profile",
-            component: ProfileComponent
+            component: ProfileComponent,
+            canActivate: [AuthGuard]
+
         }
     ]
   }

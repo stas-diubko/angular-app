@@ -30,11 +30,11 @@ export class AboutBookComponent implements OnInit {
       bookImage: this.book.bookImage,
       quantity: 1
     }
-    this.mainService.addProductToCart(product).subscribe(data=> {
-      if(data.success){
-        this.loginService.getCartLength('cart/length')
-      }
-    })
+    // this.mainService.addProductToCart(product).subscribe(data=> {
+    //   if(data.success){
+    //     this.loginService.getCartLength('cart/length')
+    //   }
+    // })
   }
 
   ngOnInit() {

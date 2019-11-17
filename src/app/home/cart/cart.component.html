@@ -1,5 +1,5 @@
 <div class="cart-wrap" (scroll)="onScroll()">
-    <div *ngIf="products.length == 0" class="empty-cart"><span>Cart is empty :(</span></div>
+    <div *ngIf="isCartEmpty" class="empty-cart"><span>Cart is empty :(</span></div>
     <div *ngIf="products.length !== 0" class="cart-head">
         <span>Cart ({{products.length}} products)</span>
 

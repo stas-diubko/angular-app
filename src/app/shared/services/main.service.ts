@@ -10,18 +10,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MainService {
   private urlApi = environment.url;
- 
+  public onSpiner = new Subject<boolean>();
+  onSpiner$ = this.onSpiner.asObservable();
+
   constructor(
     private http: HttpClient,
     private _snackBar: MatSnackBar
   ) { }
+
+  onLoadSpiner(data:boolean) {
+    this.onSpiner.next(data);
+  }
 
   getAllBooks (url: string): Observable<string> {
     return this.http.get<any>(`${this.urlApi}${url}`)
   }
 
   addProductToCart (body: any): Observable<any> {
-  //  return console.log(body)
     return this.http.post<any>(`${this.urlApi}cart`, body);
   }
 

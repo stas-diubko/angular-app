@@ -14,14 +14,13 @@ import { AboutBookComponent } from './home/details/details.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { CartComponent } from './home/cart/cart.component';
 import { ProfileComponent } from './home/profile/profile.component';
-
-
+import { AuthGuard } from './shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +31,8 @@ import { ProfileComponent } from './home/profile/profile.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true },
-    RegistrationService
+    RegistrationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

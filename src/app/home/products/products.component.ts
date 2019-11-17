@@ -42,10 +42,15 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginService.isLoginPage(false);
+    this.loginService.getCartLength('cart/length');
+    this.mainService.onLoadSpiner(true);
     this.mainService.getAllBooks('books').subscribe((data:any)=>{
-      this.books = data.data
+      this.mainService.onLoadSpiner(false);
+      this.books = data.data;
+    }, error => {
+      this.mainService.onLoadSpiner(false);
     })
-    this.loginService.getCartLength('cart/length')
   }
 
 }

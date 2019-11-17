@@ -4,11 +4,13 @@ import { LoginService } from '../../shared/services/login.sevice';
 import { ProfileService } from '../../shared/services/profile.service';
 import { MainService } from '../../shared/services/main.service';
 import { Router } from '@angular/router';
+import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  providers: [AuthGuard]
 })
 export class ProfileComponent implements OnInit {
 

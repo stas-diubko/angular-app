@@ -10,8 +10,6 @@ export default class RegistrationService {
   constructor(private http : HttpClient) { }
 
   post(url: string, user):Observable<any>{
-    //   console.log(user);
-      
     return this.http.post(`${this.urlApi}${url}`, user)
   }
   

@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~8.2.8",
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "^8.2.9",
+    "@fortawesome/angular-fontawesome": "^0.5.0",
+    "@fortawesome/fontawesome": "^1.1.8",
     "@material/button": "^3.2.0",
     "@material/layout-grid": "^3.1.0",
     "jwt-decode": "^2.2.0",

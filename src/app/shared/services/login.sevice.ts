@@ -28,8 +28,8 @@ export class LoginService {
   public avatar = new Subject<any>();
   avatar$ = this.avatar.asObservable();
 
-  public onLoginPage = new BehaviorSubject<any>(false);
-  onLoginPage$ = this.avatar.asObservable();
+  public onLoginPage = new BehaviorSubject<any>(null);
+  onLoginPage$ = this.onLoginPage.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -43,12 +43,12 @@ export class LoginService {
     })
   } 
 
-  public isAuthenticated(): any{
-    const token = localStorage.getItem('token');
-    if (!token) {
+  isAuthenticated():boolean{
+        const token = localStorage.getItem('token');
+        if (token) {
+            return true
+        }
         return false
-    }
-    return true
   }
 
   getToken () {
@@ -73,10 +73,11 @@ export class LoginService {
 
   getCartLength(url: string){
     let token = this.getToken()
-    return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data)=>{
-      this.isCartLength.next(data.data)
-    })
-
+    if(token) {
+      return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data)=>{
+        this.isCartLength.next(data.data)
+      })
+    }
   }
 
   resetPassword(email: string){

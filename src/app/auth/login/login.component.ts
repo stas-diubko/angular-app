@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public mainService: MainService
   )
   
   { 
@@ -56,8 +57,12 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.email,
       password: this.loginForm.value.password
     }
+
+    if(loginData.password == '' || loginData.username == '') {
+      return this.mainService.openSnackBar('All fields must be filled', null)
+    }
     
-    this.loginService.post('login', loginData).subscribe((data:any)=>{
+    return this.loginService.post('login', loginData).subscribe((data:any)=>{
       // console.log(data)
       if (data.success) {
         this.token = data.data;
@@ -76,21 +81,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginService.isLoginPage(true);
     if (this.loginService.isAuthenticated()) {
       this.router.navigateByUrl('/home/products')
     }
-
-    this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
-      console.log(url[0].path);
-      if(url[0].path !== 'login') {
-        this.loginService.isLoginPage(false)
-      } else {
-        this.loginService.isLoginPage(true)
-      }
-    })
-
   }
-
 }
 
 @Component({
