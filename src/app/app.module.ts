@@ -15,12 +15,14 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { CartComponent } from './home/cart/cart.component';
 import { ProfileComponent } from './home/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
