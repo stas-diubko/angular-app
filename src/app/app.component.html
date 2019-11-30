@@ -10,7 +10,7 @@
                     <div [routerLink]="['/home/products']" (click)="close('toggle button')">Products</div>
                     <div [routerLink]="['/home/cart']" (click)="close('toggle button')">Cart</div>
                     <div [routerLink]="['/home/profile']" (click)="close('toggle button')">Profile</div>
-
+                    <div [routerLink]="['/admin']" (click)="close('toggle button')">Admin</div>
                 </div>
                 <div class="clear">
                     <button mat-button (click)="close('toggle button')"><i class="material-icons">clear</i></button>
@@ -29,7 +29,7 @@
                         <div *ngIf="isLogin">
                             <button mat-button (click)="sidenav.open()"><i class="material-icons">menu</i></button>
                         </div>
-                        <h2>Book's Shop</h2>
+                        <h2 [routerLink]="['/home/products']" (click)="close('toggle button')">Book's Shop</h2>
                     </div>
                     <div class="users-window" *ngIf="isLogin">
                         <div [ngClass]="{'user-bag': isCartEmpty == true, 'user-bag-empty': isCartEmpty == false}" [routerLink]="['/home/cart']">

@@ -138,7 +138,6 @@
     }
 }
 
-// .users-window 
 .users-window img:hover {
     cursor: pointer;
 }
@@ -154,8 +153,11 @@ header {
 }
 
 h2 {
+    display: flex;
+    align-items: center;
     margin: 0 0 0 30px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .login {

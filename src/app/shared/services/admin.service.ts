@@ -11,14 +11,17 @@ import * as jwt_decode from "jwt-decode";
 export class AdminService {
     private _urlApi = environment.url;
 
+    public users = new Subject<any>();
+    users$ = this.users.asObservable();
+
     constructor(
         private http: HttpClient,
     ) { }
 
     getAllUsers(data) {
-        return this.http.put<any>(`${this._urlApi}users`, data).subscribe((data) => {
-            console.log(data);
-            
+        return this.http.put<any>(`${this._urlApi}users`, data)
+        .subscribe((data) => {
+            this.users.next(data);
         })
     }
 
