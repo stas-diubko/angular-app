@@ -3,4 +3,11 @@
     table {
         width: 100%;
     }
+    .user-delete {
+        display: flex;
+        justify-content: flex-end;
+        span {
+            cursor: pointer;
+        }
+    }
 }

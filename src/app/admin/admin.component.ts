@@ -3,6 +3,7 @@ import { AdminService } from '../shared/services/admin.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { MainService } from '../shared/services/main.service';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +17,8 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private _adminService: AdminService,
+    public mainService: MainService
+
     
   ) {
     this.allUsers = this._adminService.users$.subscribe(data => {
@@ -27,24 +30,33 @@ export class AdminComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
   
-  displayedColumns: string[] = ['name', 'email', 'id'];
+  displayedColumns: string[] = ['name', 'email', 'id', 'delete'];
   dataUsers: MatTableDataSource<AllUsers>;
-
-
-  getUsers(page, pageSize) {
-    this._adminService.getAllUsers({ page: page, pageSize: pageSize })
-  }
 
   page:number = 0;
   pageSize:number = 2;
 
+  getUsers() {
+    this._adminService.getAllUsers({ page: this.page, pageSize: this.pageSize })
+  }
 
   getPaginatorData(event) {
-    this.getUsers(event.pageIndex, event.pageSize);
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getUsers();
+  }
+
+  deleteUser(event) {
+    this._adminService.deleteUser(event.currentTarget.id).subscribe((data)=>{
+      if (data.success) {
+          this.mainService.openSnackBar('User deleted', null)
+          this.getUsers();
+      }
+    })
   }
 
   ngOnInit() {
-    this.getUsers(this.page, this.pageSize);
+    this.getUsers();
   }
 
 }

@@ -3,6 +3,7 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
+import { MainService } from './main.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,8 @@ export class AdminService {
 
     constructor(
         private http: HttpClient,
+        public mainService: MainService
+
     ) { }
 
     getAllUsers(data) {
@@ -23,6 +26,10 @@ export class AdminService {
         .subscribe((data) => {
             this.users.next(data);
         })
+    }
+
+    deleteUser(userId) {
+        return this.http.delete<any>(`${this._urlApi}users/${userId}`);
     }
 
   
