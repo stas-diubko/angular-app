@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
 import { LoginService } from './login.sevice';
 import { MainService } from './main.service';
+import { AuthHelper } from '../helpers/auth.helper';
 
 @Injectable({
     providedIn: 'root'
@@ -15,8 +16,9 @@ private urlApi = environment.url;
 
     constructor(
         private http: HttpClient,
-        private loginService: LoginService,
-        public mainService: MainService
+        public mainService: MainService,
+        private _authHelper: AuthHelper,
+
     ) { }
 
   changeUserData(data:Object) {
@@ -28,7 +30,7 @@ private urlApi = environment.url;
           this.mainService.openSnackBar('Data changed', null);
             localStorage.removeItem('token');
             localStorage.setItem('token', data.data);
-            this.loginService.getToken();
+            this._authHelper.getToken();
         }
       })
   }

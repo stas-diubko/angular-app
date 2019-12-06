@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LoginData } from 'src/app/shared/models/login-model'
 import * as jwt_decode from "jwt-decode";
+import { AuthHelper } from '../helpers/auth.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -12,82 +13,57 @@ import * as jwt_decode from "jwt-decode";
 export class LoginService {
   private urlApi = environment.url;
   private loginData = new Subject<LoginData>();
-  register$ = this.loginData;  
+  register$ = this.loginData;
 
-  private token = new Subject<any>();
-  
-  token$ = this.token.asObservable();
-
-  public isLogin = new Subject<boolean>();
-
-  isLogin$ = this.isLogin.asObservable();
-
-  public isCartLength = new BehaviorSubject<any>(false);
+  isCartLength = new BehaviorSubject<boolean>(false);
   isCartLength$ = this.isCartLength.asObservable();
 
-  public avatar = new Subject<any>();
+  avatar = new Subject<any>();
   avatar$ = this.avatar.asObservable();
 
-  public onLoginPage = new BehaviorSubject<any>(null);
+  onLoginPage = new BehaviorSubject<boolean>(false);
   onLoginPage$ = this.onLoginPage.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private _authHelper: AuthHelper
+  ) { }
 
   isLoginPage(data) {
     this.onLoginPage.next(data)
   }
 
-  getAvatar(url: string){
-    return this.http.get<any>(`${this.urlApi}${url}`).subscribe((data)=>{
+  getAvatar(url: string) {
+    return this.http.get<any>(`${this.urlApi}${url}`).subscribe((data) => {
       this.avatar.next(data.data)
     })
-  } 
-
-  isAuthenticated():boolean{
-        const token = localStorage.getItem('token');
-        if (token) {
-            return true
-        }
-        return false
   }
 
-  getToken () {
-    let token = localStorage.getItem('token')
-    if (token) {
-      const decoded = jwt_decode(token);
-      this.token.next(decoded);
-      this.isLogin.next(true)
-      return decoded;
-    } else {
-      this.isLogin.next(false)
-    }
-  }
-
-  setloginState(loginData: LoginData){
+  setloginState(loginData: LoginData) {
     this.loginData.next(loginData)
-  } 
-  
-  post(url: string, auth): Observable<any>{
+  }
+
+  post(url: string, auth): Observable<any> {
     return this.http.post(`${this.urlApi}${url}`, auth)
   }
 
-  getCartLength(url: string){
-    let token = this.getToken()
-    if(token) {
-      return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data)=>{
+  getCartLength(url: string) {
+    let token = this._authHelper.getToken();
+    if (token) {
+      return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data) => {
         this.isCartLength.next(data.data)
       })
     }
   }
 
-  resetPassword(email: string){
+  resetPassword(email: string) {
     let body = {
       email: email
     }
     return this.http.put<any>(`${this.urlApi}login/reset-password`, body);
   }
 
-  onResetPassword(data:object, id:string) {
+  onResetPassword(data: object, id: string) {
     return this.http.put<any>(`${this.urlApi}login/reset-user-password/${id}`, data)
   }
 }

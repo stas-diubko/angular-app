@@ -6,6 +6,7 @@ import {MatSidenav} from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MainService } from './shared/services/main.service';
 import { Router } from '@angular/router';
+import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
   spinner: Subscription;
 
   constructor (
+    private _authHelper: AuthHelper,
     private loginService: LoginService,
     private mainService: MainService,
     private _snackBar: MatSnackBar,
@@ -40,12 +42,12 @@ export class AppComponent implements OnInit {
       this.isLoginPage = data;
     })
 
-    this.dataUser = this.loginService.token$.subscribe(data => {
+    this.dataUser = this._authHelper.token$.subscribe(data => {
       this.userName = data.name     
       this.email = data.email
     });
     
-    this.getIsLogin = this.loginService.isLogin.subscribe(data => {
+    this.getIsLogin = this._authHelper.isLogin.subscribe(data => {
      this.isLogin = data;
     })
 
@@ -76,13 +78,10 @@ export class AppComponent implements OnInit {
   }
 
   onLogOut() {
-
     this.loginService.isLoginPage(false)
     localStorage.removeItem('token');
-    this.loginService.getToken();
+    this._authHelper.getToken();
     this.router.navigate(['home', 'products']);
-    
-
   }
 
   toLoginPage() {
@@ -104,7 +103,7 @@ export class AppComponent implements OnInit {
     this.year = now.getFullYear();
     let token = localStorage.getItem('token');
     const decoded = jwt_decode(token) as any;
-    this.loginService.getToken();
+    this._authHelper.getToken();
     this.loginService.getAvatar(`users/avatar/${decoded.id}`);
   }
 }

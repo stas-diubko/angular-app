@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import * as jwt_decode from "jwt-decode";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MainService } from 'src/app/shared/services/main.service';
+import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
 
 export interface DialogData {
   animal: string;
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     public dialog: MatDialog,
-    public mainService: MainService
+    public mainService: MainService,
+    private _authHelper: AuthHelper
   )
   
   { 
@@ -82,7 +84,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.isLoginPage(true);
-    if (this.loginService.isAuthenticated()) {
+    if (this._authHelper.isAuthenticated()) {
       this.router.navigateByUrl('/home/products')
     }
   }

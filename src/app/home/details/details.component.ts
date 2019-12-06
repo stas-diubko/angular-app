@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DetailsService } from '../../shared/services/details.service';
 import { LoginService } from '../../shared/services/login.sevice';
 import { MainService } from '../../shared/services/main.service';
+import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
 
 @Component({
   selector: 'app-details',
@@ -12,14 +13,13 @@ import { MainService } from '../../shared/services/main.service';
 export class AboutBookComponent implements OnInit {
   public book:any = {}
   constructor(
+    private _authHelper: AuthHelper,
     private activatedRoute: ActivatedRoute,
     private detailsService: DetailsService,
-    private loginService: LoginService,
-    private mainService: MainService
   ) { }
 
   addToCart(event:any) {
-    let token = this.loginService.getToken();
+    let token = this._authHelper.getToken();
     let product = {
       userId: token.id,
       bookId: this.book._id,
@@ -30,11 +30,6 @@ export class AboutBookComponent implements OnInit {
       bookImage: this.book.bookImage,
       quantity: 1
     }
-    // this.mainService.addProductToCart(product).subscribe(data=> {
-    //   if(data.success){
-    //     this.loginService.getCartLength('cart/length')
-    //   }
-    // })
   }
 
   ngOnInit() {

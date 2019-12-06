@@ -30,12 +30,9 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private loginService: LoginService,
     @Inject(DOCUMENT) private document: Document,
-   
   ) { 
 
   }
-
-
   checkValueAll() {
     let cartPrice = 0;
     this.checkedAll = !this.checkedAll;

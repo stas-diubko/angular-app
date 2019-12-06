@@ -3,6 +3,7 @@ import * as jwt_decode from "jwt-decode";
 import { MainService } from '../../shared/services/main.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../shared/services/login.sevice';
+import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
 
 @Component({
   selector: 'app-home',
@@ -10,46 +11,39 @@ import { LoginService } from '../../shared/services/login.sevice';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  public books = [];
+   books = [];
 
   constructor(
-    private mainService: MainService,
-    private loginService: LoginService,
-    private router: Router
-
+    private _mainService: MainService,
+    private _loginService: LoginService,
+    private _authHelper: AuthHelper,
   ) { }
-
-  showDetails (e) {
-    // console.log(e.target.id);
-    // this.router.navigate(['books', 3]);
-    
-  }
 
   addProduct(event:any) {
     let index = this.books.findIndex((i:any) => i._id == event.currentTarget.id);
-    let token = this.loginService.getToken();
+    let token = this._authHelper.getToken();
     let product = {
       userId: token.id,
       bookId: this.books[index]._id,
       quantity: 1
     }
 
-    this.mainService.addProductToCart(product).subscribe(data=> {
+    this._mainService.addProductToCart(product).subscribe(data=> {
       if(data.success){
-        this.loginService.getCartLength('cart/length')
+        this._loginService.getCartLength('cart/length')
       }
     })
   }
 
   ngOnInit() {
-    this.loginService.isLoginPage(false);
-    this.loginService.getCartLength('cart/length');
-    this.mainService.onLoadSpiner(true);
-    this.mainService.getAllBooks('books').subscribe((data:any)=>{
-      this.mainService.onLoadSpiner(false);
+    this._loginService.isLoginPage(false);
+    this._loginService.getCartLength('cart/length');
+    this._mainService.onLoadSpiner(true);
+    this._mainService.getAllBooks('books').subscribe((data:any)=>{
+      this._mainService.onLoadSpiner(false);
       this.books = data.data;
     }, error => {
-      this.mainService.onLoadSpiner(false);
+      this._mainService.onLoadSpiner(false);
     })
   }
 

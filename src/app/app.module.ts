@@ -8,7 +8,6 @@ import { MaterialModule } from './shared/modules/material.module';
 import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
 import { CustomHttpInterceptorService } from './shared/interceptors/interceptor';
 import RegistrationService from './shared/services/registration.service';
-import { HeaderComponent } from './shared/containers/header/header.component';
 import { CommonModule } from '@angular/common';
 import { AboutBookComponent } from './home/details/details.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -20,7 +19,6 @@ import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     SidenavComponent,
     AdminComponent
   ],
