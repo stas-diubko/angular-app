@@ -45,7 +45,14 @@ export class ProfileComponent implements OnInit {
          email: this.profileForm.get('email').value,
          name: this.profileForm.get('name').value
        }
-       this._profileService.changeUserData(data);
+       this._profileService.changeUserData(data).subscribe((data)=>{
+        if(data.success){
+          this.mainService.openSnackBar('Data changed', null);
+            localStorage.removeItem('token');
+            localStorage.setItem('token', data.data);
+            this._authHelper.getToken();
+        }
+      });
      } 
      if (!this.profileForm.valid) {
        this.mainService.openSnackBar('Form is not correct', null);
@@ -62,15 +69,20 @@ export class ProfileComponent implements OnInit {
        if(data.newPassword !== data.confirmedNewPassword) {
         this.mainService.openSnackBar('New password does not match confirmed', null);
        } else {
-          this._profileService.changePassword(data)
+          this._profileService.changePassword(data).subscribe((data)=>{
+            if(data.success){
+              this.mainService.openSnackBar('Password changed', null);
+            } else {
+              this.mainService.openSnackBar(data.data, null);
+            }
+        })
 
-          this.profileForm2.controls['currentPassword'].clearValidators()
-          this.profileForm2.controls['newPassword'].clearValidators()
-          this.profileForm2.controls['confirmedNewPassword'].clearValidators()
-
-          this.profileForm2.controls['currentPassword'].reset()
-          this.profileForm2.controls['newPassword'].reset()
-          this.profileForm2.controls['confirmedNewPassword'].reset()
+          this.profileForm2.controls['currentPassword'].clearValidators();
+          this.profileForm2.controls['newPassword'].clearValidators();
+          this.profileForm2.controls['confirmedNewPassword'].clearValidators();
+          this.profileForm2.controls['currentPassword'].reset();
+          this.profileForm2.controls['newPassword'].reset();
+          this.profileForm2.controls['confirmedNewPassword'].reset();
        }
      } else {
         this.mainService.openSnackBar('form is not correct', null);
@@ -79,10 +91,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     if (!this._authHelper.isAuthenticated()) {
-      this.router.navigateByUrl('/home/products')
+      this.router.navigateByUrl('/home/products');
     }
-    this._loginService.getCartLength('cart/length')
-    let userData = this._authHelper.getToken()
+    this._loginService.getCartLength('cart/length');
+    let userData = this._authHelper.getToken();
     this.name = userData.name;
     this.email = userData.email;
   }

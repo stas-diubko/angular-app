@@ -7,10 +7,9 @@ import { Observable } from 'rxjs';
 export default class RegistrationService {
   providedIn: 'root'
   private urlApi = environment.url;
-  constructor(private http : HttpClient) { }
+  constructor(private _http : HttpClient) { }
 
   post(url: string, user):Observable<any>{
-    return this.http.post(`${this.urlApi}${url}`, user)
+    return this._http.post(`${this.urlApi}${url}`, user)
   }
-  
 }

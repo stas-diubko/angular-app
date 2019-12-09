@@ -6,6 +6,8 @@ import * as jwt_decode from "jwt-decode";
 import { LoginService } from './login.sevice';
 import { MainService } from './main.service';
 import { AuthHelper } from '../helpers/auth.helper';
+import { ChangeUserDataModel } from '../models/change-user-data-model';
+import { ChangedPasswordModel } from '../models/change-password-model';
 
 @Injectable({
     providedIn: 'root'
@@ -15,35 +17,18 @@ export class ProfileService {
 private urlApi = environment.url;
 
     constructor(
-        private http: HttpClient,
+        private _http: HttpClient,
         public mainService: MainService,
         private _authHelper: AuthHelper,
-
     ) { }
 
-  changeUserData(data:Object) {
-    let token = localStorage.getItem('token');
-    const decoded = jwt_decode(token) as any;
-    
-    return this.http.put<any>(`${this.urlApi}users/avatar/${decoded.id}`, data).subscribe((data)=>{
-        if(data.success){
-          this.mainService.openSnackBar('Data changed', null);
-            localStorage.removeItem('token');
-            localStorage.setItem('token', data.data);
-            this._authHelper.getToken();
-        }
-      })
+  changeUserData(data:Object): Observable<ChangeUserDataModel> {
+    let token = this._authHelper.getToken();
+    return this._http.put<ChangeUserDataModel>(`${this.urlApi}users/avatar/${token.id}`, data);
   }
   
-  changePassword(data:Object) {
-      let token = localStorage.getItem('token');
-      const decoded = jwt_decode(token) as any;
-      return this.http.put<any>(`${this.urlApi}users/password/${decoded.id}`, data).subscribe((data)=>{
-          if(data.success){
-            this.mainService.openSnackBar('Password changed', null);
-          } else {
-            this.mainService.openSnackBar(data.data, null);
-          }
-      })
+  changePassword(data:Object): Observable<ChangedPasswordModel> {
+      let token = this._authHelper.getToken();
+      return this._http.put<any>(`${this.urlApi}users/password/${token.id}`, data);
   }
 }

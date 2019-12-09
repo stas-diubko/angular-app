@@ -7,6 +7,7 @@ import { AuthGuard as AuthGuard } from '../app/shared/guards/auth.guard'
 import { CartComponent } from './home/cart/cart.component';
 import { ProfileComponent } from './home/profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
+import { RoleGuard } from './shared/guards/role.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: "auth", pathMatch: "full" },
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [RoleGuard]
   }
 
 ];

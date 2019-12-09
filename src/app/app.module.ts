@@ -15,6 +15,7 @@ import { CartComponent } from './home/cart/cart.component';
 import { ProfileComponent } from './home/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminComponent } from './admin/admin.component';
+import { RoleGuard } from './shared/guards/role.guard';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdminComponent } from './admin/admin.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true },
     RegistrationService,
-    AuthGuard
+    AuthGuard,
+    RoleGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
 import { MainService } from './main.service';
+import { GetUsersAdmin } from '../models/get-users-admin-model';
+import { DeleteUserModel } from '../models/delete-user-model';
 
 @Injectable({
     providedIn: 'root'
@@ -18,18 +20,14 @@ export class AdminService {
     constructor(
         private http: HttpClient,
         public mainService: MainService
-
     ) { }
 
-    getAllUsers(data) {
-        return this.http.put<any>(`${this._urlApi}users`, data)
-        .subscribe((data) => {
-            this.users.next(data);
-        })
+    getAllUsers(data): Observable<GetUsersAdmin> {
+        return this.http.put<GetUsersAdmin>(`${this._urlApi}users`, data);
     }
 
-    deleteUser(userId) {
-        return this.http.delete<any>(`${this._urlApi}users/${userId}`);
+    deleteUser(userId): Observable<DeleteUserModel> {
+        return this.http.delete<DeleteUserModel>(`${this._urlApi}users/${userId}`);
     }
 
   

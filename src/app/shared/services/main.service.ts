@@ -14,7 +14,7 @@ export class MainService {
   onSpiner$ = this.onSpiner.asObservable();
 
   constructor(
-    private http: HttpClient,
+    private _http: HttpClient,
     private _snackBar: MatSnackBar
   ) { }
 
@@ -23,11 +23,11 @@ export class MainService {
   }
 
   getAllBooks (url: string): Observable<string> {
-    return this.http.get<any>(`${this.urlApi}${url}`)
+    return this._http.get<any>(`${this.urlApi}${url}`)
   }
 
   addProductToCart (body: any): Observable<any> {
-    return this.http.post<any>(`${this.urlApi}cart`, body);
+    return this._http.post<any>(`${this.urlApi}cart`, body);
   }
 
   openSnackBar(message: string, action: string) {
@@ -35,6 +35,4 @@ export class MainService {
       duration: 3000,
     });
   }
-  
-  
 }

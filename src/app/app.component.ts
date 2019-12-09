@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   public isLoginPage:any = false;
   public onSpiner:boolean = false;
   public year:number = null;
+  isAdmin = false;
   getIsLogin: Subscription;
   dataUser: Subscription;
   cart: Subscription;
@@ -73,6 +74,16 @@ export class AppComponent implements OnInit {
     this.sidenav.close();
   }
 
+  openNav() {
+    let token = this._authHelper.getToken();
+    if (token.role === "admin") {
+      this.isAdmin = true;
+    }
+    if (token.role !== "admin") {
+      this.isAdmin = false;
+    }
+  }
+
   onChangeUserData() {
     this.changeModal = !this.changeModal
   }
@@ -102,7 +113,7 @@ export class AppComponent implements OnInit {
     let now = new Date();
     this.year = now.getFullYear();
     let token = localStorage.getItem('token');
-    const decoded = jwt_decode(token) as any;
+    const decoded = jwt_decode(token);
     this._authHelper.getToken();
     this.loginService.getAvatar(`users/avatar/${decoded.id}`);
   }

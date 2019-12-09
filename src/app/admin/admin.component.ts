@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
+import { TableUsersModel } from '../shared/models/table-users-model';
+import { AuthHelper } from '../shared/helpers/auth.helper';
 
 @Component({
   selector: 'app-admin',
@@ -17,27 +19,23 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private _adminService: AdminService,
-    public mainService: MainService
-
-    
-  ) {
-    this.allUsers = this._adminService.users$.subscribe(data => {
-      // this.users = data.data;
-      this.dataUsers = new MatTableDataSource<AllUsers>(data.data);
-      this.usersLength = data.usersLength
-    })
-   }
+    public mainService: MainService,
+    private _authHelper: AuthHelper,
+  ) { }
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
   
   displayedColumns: string[] = ['name', 'email', 'id', 'delete'];
-  dataUsers: MatTableDataSource<AllUsers>;
+  dataUsers: MatTableDataSource<TableUsersModel>;
 
   page:number = 0;
   pageSize:number = 2;
 
   getUsers() {
-    this._adminService.getAllUsers({ page: this.page, pageSize: this.pageSize })
+    this._adminService.getAllUsers({ page: this.page, pageSize: this.pageSize }).subscribe((data) => {
+      this.dataUsers = new MatTableDataSource<TableUsersModel>(data.data);
+      this.usersLength = data.usersLength;
+    });
   }
 
   getPaginatorData(event) {
@@ -49,7 +47,7 @@ export class AdminComponent implements OnInit {
   deleteUser(event) {
     this._adminService.deleteUser(event.currentTarget.id).subscribe((data)=>{
       if (data.success) {
-          this.mainService.openSnackBar('User deleted', null)
+          this.mainService.openSnackBar('User deleted', null);
           this.getUsers();
       }
     })
@@ -59,12 +57,4 @@ export class AdminComponent implements OnInit {
     this.getUsers();
   }
 
-}
-
-export interface AllUsers {
-  email: string;
-  id: number;
-  image: string;
-  name: string;
-  password: string;
 }

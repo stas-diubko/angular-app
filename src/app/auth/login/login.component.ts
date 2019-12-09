@@ -65,7 +65,6 @@ export class LoginComponent implements OnInit {
     }
     
     return this.loginService.post('login', loginData).subscribe((data:any)=>{
-      // console.log(data)
       if (data.success) {
         this.token = data.data;
         localStorage.setItem('token', `${this.token}`);

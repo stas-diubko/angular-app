@@ -45,7 +45,6 @@ export class RegistrationComponent implements OnInit {
             email: user.email,
             password: user.password
           }
-        console.log(data)
           this._router.navigateByUrl('/').then(x => {
             this._loginService.setloginState(loginData)
           })
