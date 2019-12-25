@@ -5,13 +5,15 @@ import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
 import { LoginService } from './login.sevice';
 import { AuthHelper } from '../helpers/auth.helper';
+import { RequestUpdateProductModel } from '../models/request-update-product-model';
+import { UpdateProductModel } from '../models/uodate-product-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
     private _urlApi = environment.url;
-    public totalCart = new BehaviorSubject<any>('0');
+    public totalCart = new BehaviorSubject<number>(0);
     dataCart = this.totalCart.asObservable();
 
     constructor(
@@ -19,20 +21,20 @@ export class CartService {
         private _authHelper: AuthHelper,
     ) { }
 
-    updatedDataTotalCart(data: any){
+    updatedDataTotalCart(data: number){
         this.totalCart.next(data);
-      }
-    updateProduct(url:string, body:any): Observable<string> {
-        let token = this._authHelper.getToken();
-        return this.http.put<any>(`${this._urlApi}${url}/${token.id}`, body)
     }
-    deleteProduct(bookId:string): Observable<string> {
+    updateProduct(url:string, body:RequestUpdateProductModel): Observable<UpdateProductModel> {
         let token = this._authHelper.getToken();
-        return this.http.delete<any>(`${this._urlApi}cart/${token.id}/${bookId}`);
+        return this.http.put<UpdateProductModel>(`${this._urlApi}${url}/${token.id}`, body)
     }
-    getAllProducts (url: string): Observable<string> {
+    deleteProduct(bookId:string){
         let token = this._authHelper.getToken();
-        return this.http.get<any>(`${this._urlApi}${url}/${token.id}`)
+        return this.http.delete(`${this._urlApi}cart/${token.id}/${bookId}`);
+    }
+    getAllProducts (url: string): Observable<object> {
+        let token = this._authHelper.getToken();
+        return this.http.get<object>(`${this._urlApi}${url}/${token.id}`)
     }
     onPay() {
 

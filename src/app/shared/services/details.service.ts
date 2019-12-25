@@ -15,8 +15,8 @@ export class DetailsService {
     private http: HttpClient,
     ) { }
 
-  getBook (url: string): Observable<string> {
-    return this.http.get<any>(`${this.urlApi}${url}`)
+  getBook (url: string): Observable<object> {
+    return this.http.get<object>(`${this.urlApi}${url}`)
   }
 
 }

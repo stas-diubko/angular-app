@@ -59,12 +59,11 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.email,
       password: this.loginForm.value.password
     }
-
     if(loginData.password == '' || loginData.username == '') {
       return this.mainService.openSnackBar('All fields must be filled', null)
     }
     
-    return this.loginService.post('login', loginData).subscribe((data:any)=>{
+    return this.loginService.onLogin('login', loginData).subscribe((data:any)=>{
       if (data.success) {
         this.token = data.data;
         localStorage.setItem('token', `${this.token}`);
@@ -119,9 +118,9 @@ export class DialogReset {
         this.dialogRef.close();
         this.loginService.resetPassword(email).subscribe((data)=>{
         if(data.success) {
-          this.mainService.openSnackBar(data.message, null)
+          this.mainService.openSnackBar(data.data, null)
         } else {
-          this.mainService.openSnackBar(data.message, null)
+          this.mainService.openSnackBar(data.data, null)
         }
       })
     }

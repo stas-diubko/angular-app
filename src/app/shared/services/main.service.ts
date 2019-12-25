@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddProductModel } from '../models/add-product-model';
+import { RequestAddProductToCart } from '../models/request-add-product-yo-cart-modek';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +24,12 @@ export class MainService {
     this.onSpiner.next(data);
   }
 
-  getAllBooks (url: string): Observable<string> {
-    return this._http.get<any>(`${this.urlApi}${url}`)
+  getAllBooks (url: string): Observable<object> {
+    return this._http.get<object>(`${this.urlApi}${url}`);
   }
 
-  addProductToCart (body: any): Observable<any> {
-    return this._http.post<any>(`${this.urlApi}cart`, body);
+  addProductToCart (body: RequestAddProductToCart): Observable<AddProductModel> {
+    return this._http.post<AddProductModel>(`${this.urlApi}cart`, body);
   }
 
   openSnackBar(message: string, action: string) {

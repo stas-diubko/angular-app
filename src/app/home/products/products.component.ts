@@ -27,10 +27,9 @@ export class ProductsComponent implements OnInit {
       bookId: this.books[index]._id,
       quantity: 1
     }
-
     this._mainService.addProductToCart(product).subscribe(data=> {
       if(data.success){
-        this._loginService.getCartLength('cart/length')
+        this._loginService.getCartLength('cart/length');
       }
     })
   }

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
 import { environment } from 'src/environments/environment';
 import { LoginData } from 'src/app/shared/models/login-model'
-import * as jwt_decode from "jwt-decode";
 import { AuthHelper } from '../helpers/auth.helper';
+import { ChangedPasswordModel } from '../models/change-password-model';
+import { GetCartLengthModel } from '../models/get-cart-length-model';
+import { RequestLoginModel } from '../models/request-login-model';
+import { ResponseLoginModel } from '../models/login-response-model';
+import { GetAvatarModel } from '../models/get-avarar-model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,7 @@ export class LoginService {
   isCartLength = new BehaviorSubject<boolean>(false);
   isCartLength$ = this.isCartLength.asObservable();
 
-  avatar = new Subject<any>();
+  avatar = new Subject<string>();
   avatar$ = this.avatar.asObservable();
 
   onLoginPage = new BehaviorSubject<boolean>(false);
@@ -34,7 +37,7 @@ export class LoginService {
   }
 
   getAvatar(url: string) {
-    return this.http.get<any>(`${this.urlApi}${url}`).subscribe((data) => {
+    return this.http.get<GetAvatarModel>(`${this.urlApi}${url}`).subscribe((data) => {
       this.avatar.next(data.data)
     })
   }
@@ -43,27 +46,27 @@ export class LoginService {
     this.loginData.next(loginData)
   }
 
-  post(url: string, auth): Observable<any> {
-    return this.http.post(`${this.urlApi}${url}`, auth)
+  onLogin(url: string, auth: RequestLoginModel): Observable<ResponseLoginModel> {
+    return this.http.post<ResponseLoginModel>(`${this.urlApi}${url}`, auth)
   }
 
   getCartLength(url: string) {
     let token = this._authHelper.getToken();
     if (token) {
-      return this.http.get<any>(`${this.urlApi}${url}/${token.id}`).subscribe((data) => {
+      return this.http.get<GetCartLengthModel>(`${this.urlApi}${url}/${token.id}`).subscribe((data) => {
         this.isCartLength.next(data.data)
       })
     }
   }
 
-  resetPassword(email: string) {
+  resetPassword(email: string): Observable<ChangedPasswordModel> {
     let body = {
       email: email
     }
-    return this.http.put<any>(`${this.urlApi}login/reset-password`, body);
+    return this.http.put<ChangedPasswordModel>(`${this.urlApi}login/reset-password`, body);
   }
 
-  onResetPassword(data: object, id: string) {
-    return this.http.put<any>(`${this.urlApi}login/reset-user-password/${id}`, data)
+  onResetPassword(data: object, id: string): Observable<ChangedPasswordModel> {
+    return this.http.put<ChangedPasswordModel>(`${this.urlApi}login/reset-user-password/${id}`, data)
   }
 }
