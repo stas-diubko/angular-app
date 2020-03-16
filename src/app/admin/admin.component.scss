@@ -1,5 +1,16 @@
 .admin-wrap {
-    min-height: 766px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    // .mat-elevation-z8 {
+    //     width: 80%;
+    // }
+    
+
+}
+
+.admin-wrap-content {
+    width: 90%;
     table {
         width: 100%;
     }
@@ -10,4 +21,22 @@
             cursor: pointer;
         }
     }
+}
+
+.mat-elevation-z8 {
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        mat-form-field {
+            width: 60%;
+        }
+        button {
+            width: 10%;
+        }
+    }
+}
+
+.ng-hide {
+    margin: 10px 0 30px;
 }
