@@ -3,5 +3,5 @@ export interface AddingBookModel {
     author: string;
     description: string;
     price: string;
-    // bookImage: string;
+    bookImage: string | ArrayBuffer;
 }

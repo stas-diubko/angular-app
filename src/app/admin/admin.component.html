@@ -65,6 +65,14 @@
                             <th mat-header-cell *matHeaderCellDef> Price </th>
                             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                         </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td class="cell-delete" mat-cell *matCellDef="let element">
+                                <div class="user-delete"><span id={{element._id}} (click)=editProduct($event)><i class="material-icons">edit</i></span></div>
+                            </td>
+                        </ng-container>
         
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="delete">
@@ -113,7 +121,7 @@
                             </mat-error>
                         </mat-form-field>
                         <!-- <mat-form-field> -->
-                            <input class="ng-hide" id="input-file-id" multiple type="file" formControlName="bookImage" />
+                            <input class="ng-hide" id="input-file-id" multiple type="file" formControlName="bookImage" [(ngModel)]="addingForm.bookImage" (change)="readURL($event);" />
                             <!-- <input type='file' placeholder="Image" formControlName="bookImage"> -->
                         <!-- </mat-form-field> -->
                         <button mat-raised-button (click)="saveProduct()">Save</button>

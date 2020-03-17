@@ -1,0 +1,15 @@
+.edit-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 520px;
+    button {
+        width: 15%;
+        margin-top: 20px;
+    }
+    img {
+        height: 150px; 
+        width: 120px;
+        margin-bottom: 20px;
+    }
+}

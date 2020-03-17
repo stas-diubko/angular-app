@@ -16,12 +16,14 @@ import { ProfileComponent } from './home/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminComponent } from './admin/admin.component';
 import { RoleGuard } from './shared/guards/role.guard';
+import { DialogComponent } from './shared/components/dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
-    AdminComponent
+    AdminComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { RoleGuard } from './shared/guards/role.guard';
     AppRoutingModule,
     MaterialModule,
   ],
+  entryComponents: [DialogComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true },
     RegistrationService,

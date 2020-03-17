@@ -40,3 +40,16 @@
 .ng-hide {
     margin: 10px 0 30px;
 }
+
+.cell-delete {
+    width: 50px
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+    button {
+        width: 10%;
+    }
+}

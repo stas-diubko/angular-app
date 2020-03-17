@@ -1,0 +1,31 @@
+<div class="dialog-wrap">
+  <form [formGroup]="editForm" class="edit-form">
+    <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
+        <mat-error *ngIf="editForm.get('title').hasError('required')">
+            Field is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Author" formControlName="author" >
+        <mat-error *ngIf="editForm.get('author').hasError('required')">
+            Field is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        <mat-error *ngIf="editForm.get('description').hasError('required')">
+            Field is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Price" formControlName="price">
+        <mat-error *ngIf="editForm.get('price').hasError('required')">
+            Field is required!
+        </mat-error>
+    </mat-form-field>
+    <img src={{product.bookImage}} alt={{product.title}} />
+    <input class="ng-hide" id="input-file-id" multiple type="file" formControlName="bookImage" [(ngModel)]="editForm.bookImage" (change)="readURL($event);" />
+    <button mat-raised-button (click)="saveEditedProduct()">Save</button>
+  </form>
+</div>
