@@ -89,10 +89,7 @@ export class AppComponent implements OnInit {
   }
 
   onLogOut() {
-    this.loginService.isLoginPage(false)
-    localStorage.removeItem('token');
-    this._authHelper.getToken();
-    this.router.navigate(['home', 'products']);
+    this.loginService.onlogOut();
   }
 
   toLoginPage() {

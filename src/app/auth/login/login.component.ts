@@ -65,8 +65,10 @@ export class LoginComponent implements OnInit {
     
     return this.loginService.onLogin('login', loginData).subscribe((data:any)=>{
       if (data.success) {
-        this.token = data.data;
+        this.token = data.token;
+
         localStorage.setItem('token', `${this.token}`);
+        localStorage.setItem('refreshToken', `${data.refreshToken}`);
 
         let token = localStorage.getItem('token');
 

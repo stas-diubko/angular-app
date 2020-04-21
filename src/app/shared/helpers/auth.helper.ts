@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../services/login.sevice';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,10 @@ export class AuthHelper {
     private _token = new Subject<any>();
     token$ = this._token.asObservable();
 
-    constructor(){
+    constructor(
+      // private loginService: LoginService,
+      public router: Router
+    ){
 
     }
 
@@ -35,5 +39,10 @@ export class AuthHelper {
     isAuthenticated(): boolean {
         const token = localStorage.getItem('token');
         return !!token;
+    }
+
+    setLoginData(data:any): void {
+      localStorage.setItem('token', `${data.token}`);
+      localStorage.setItem('refreshToken', `${data.refreshToken}`);
     }
 }
