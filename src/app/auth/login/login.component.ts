@@ -6,6 +6,7 @@ import * as jwt_decode from "jwt-decode";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MainService } from 'src/app/shared/services/main.service';
 import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
+import { ResponseLoginModel } from 'src/app/shared/models/login-response-model';
 
 export interface DialogData {
   animal: string;
@@ -56,29 +57,21 @@ export class LoginComponent implements OnInit {
 
   onLogin () {
     let loginData = {
-      username: this.loginForm.value.email,
+      email: this.loginForm.value.email,
       password: this.loginForm.value.password
     }
-    if(loginData.password == '' || loginData.username == '') {
+    if(loginData.password == '' || loginData.email == '') {
       return this.mainService.openSnackBar('All fields must be filled', null)
     }
     
-    return this.loginService.onLogin('login', loginData).subscribe((data:any)=>{
-      if (data.success) {
+    return this.loginService.onLogin('auth', loginData).subscribe((data:ResponseLoginModel)=>{
         this.token = data.token;
-
         localStorage.setItem('token', `${this.token}`);
         localStorage.setItem('refreshToken', `${data.refreshToken}`);
-
         let token = localStorage.getItem('token');
-
         const decoded = jwt_decode(token) as any;
-
-        this.loginService.getAvatar(`users/avatar/${decoded.id}`)
-        
-        this.router.navigateByUrl('/home/products')
-      }
-      
+        this.loginService.getAvatar(`users/avatar/${decoded.id}`);
+        this.router.navigateByUrl('/home/products');
     })
   }
 

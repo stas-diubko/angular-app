@@ -11,6 +11,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddingBookModel } from '../shared/models/adding-book-model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog.component';
+import { AddingResponseBookModel } from '../shared/models/adding-response-book-model';
+import { DeleteProductModel } from '../shared/models/delete-book-model';
+import { GetProductsAdmin } from '../shared/models/get-product-admin-model';
+import { GetUsersAdmin } from '../shared/models/get-users-admin-model';
+import { DeleteUserModel } from '../shared/models/delete-user-model';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -18,10 +23,9 @@ import { DialogComponent } from '../shared/components/dialog.component';
 })
 
 export class AdminComponent implements OnInit {
-  public users = null
+  public users = null;
   allUsers: Subscription;
-  public usersLength:number = null
-
+  public usersLength:number = null;
   addingForm: FormGroup;
   
   constructor(
@@ -46,24 +50,22 @@ export class AdminComponent implements OnInit {
   dataUsers: MatTableDataSource<TableUsersModel>;
   page:number = 0;
   pageSize:number = 2;
-
   displayedColumnsProducts: string[] = ['title', 'author', 'id', 'price', 'edit', 'delete'];
   dataProducts: MatTableDataSource<TableProductModel>;
   productsLength: number = null;
   productPage:number = 0;
   productPageSize:number = 2;
-
   imageSrc:string | ArrayBuffer;
 
   getUsers(): void {
-    this._adminService.getAllUsers({ page: this.page, pageSize: this.pageSize }).subscribe((data) => {
+    this._adminService.getAllUsers({ page: this.page, pageSize: this.pageSize }).subscribe((data: GetUsersAdmin) => {
       this.dataUsers = new MatTableDataSource<TableUsersModel>(data.data);
       this.usersLength = data.usersLength;
     });
   }
 
   getProducts(): void {
-    this._adminService.getProducts({ page: this.productPage, pageSize: this.productPageSize }).subscribe((data) => {
+    this._adminService.getProducts({ page: this.productPage, pageSize: this.productPageSize }).subscribe((data: GetProductsAdmin) => {
       this.dataProducts = new MatTableDataSource<TableProductModel>(data.data);
       this.productsLength = data.booksLength;
     });
@@ -82,24 +84,20 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(event): void {
-    this._adminService.deleteUser(event.currentTarget.id).subscribe((data)=>{
-      if (data.success) {
-          this.mainService.openSnackBar('User deleted', null);
+    this._adminService.deleteUser(event.currentTarget.id).subscribe((data: DeleteUserModel) => {
+          this.mainService.openSnackBar(data.message, null);
           this.getUsers();
-      }
     })
   }
 
   deleteProduct(event): void {
-    this._adminService.deleteProduct(event.currentTarget.id).subscribe((data)=>{
-      if (data.success) {
-          this.mainService.openSnackBar('Product deleted', null);
+    this._adminService.deleteProduct(event.currentTarget.id).subscribe((data: DeleteProductModel)=>{
+          this.mainService.openSnackBar(data.message, null);
           this.getProducts();
-      }
     })
   }
 
-  readURL(event: any): void {
+  readURL(event): void {
     if (event.target.files && event.target.files[0]) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -109,7 +107,6 @@ export class AdminComponent implements OnInit {
   }
 
   saveProduct() {
-    try {
       const book: AddingBookModel = {
         title: this.addingForm.get('title').value,
         author: this.addingForm.get('author').value,
@@ -120,12 +117,10 @@ export class AdminComponent implements OnInit {
 
       if (!book.title || !book.author || !book.description || !book.price || !book.bookImage || !book.bookImage) {
         return this.mainService.openSnackBar('All fields must be filled', null);
-        
       }
        
-      return this._adminService.addProduct(book).subscribe((data)=>{
-        if (data.success) {
-            this.mainService.openSnackBar('Product is added', null);
+      return this._adminService.addProduct(book).subscribe((data: AddingResponseBookModel) => {
+            this.mainService.openSnackBar(data.message, null);
             this.getProducts();
             this.addingForm.controls['title'].clearValidators();
             this.addingForm.controls['author'].clearValidators();
@@ -136,12 +131,7 @@ export class AdminComponent implements OnInit {
             this.addingForm.controls['description'].reset();
             this.addingForm.controls['price'].reset();
             this.addingForm.controls['bookImage'].reset();
-        }
       })
-
-    } catch (error) {
-      this.mainService.openSnackBar('Something went wrong!', null);
-    }
   }
 
   editProduct(e): void {

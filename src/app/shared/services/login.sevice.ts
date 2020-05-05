@@ -39,8 +39,8 @@ export class LoginService {
   }
 
   getAvatar(url: string) {
-    return this.http.get<GetAvatarModel>(`${this.urlApi}${url}`).subscribe((data) => {
-      this.avatar.next(data.data)
+    return this.http.get<string>(`${this.urlApi}${url}`).subscribe((data) => {
+      this.avatar.next(data)
     })
   }
 
@@ -64,8 +64,7 @@ export class LoginService {
     let body = {
       refreshToken
     }
-    return this.http.post<ResponseLoginModel>(`${this.urlApi}login/refreshToken`, body)
-        
+    return this.http.post<ResponseLoginModel>(`${this.urlApi}auth/refreshToken`, body)
   }
 
   getCartLength(url: string) {

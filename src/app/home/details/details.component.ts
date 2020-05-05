@@ -11,7 +11,7 @@ import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
   styleUrls: ['./details.component.scss']
 })
 export class AboutBookComponent implements OnInit {
-  public book:any = {}
+  public book:any = null;
   constructor(
     private _authHelper: AuthHelper,
     private activatedRoute: ActivatedRoute,
@@ -35,7 +35,7 @@ export class AboutBookComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.detailsService.getBook(`books/${params.id}`).subscribe((data:any)=>{
-        this.book = data.data
+        this.book = data
       })
     });
   }

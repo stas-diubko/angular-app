@@ -8,6 +8,7 @@ import { ChangeUserDataModel } from '../models/change-user-data-model';
 import { ChangedPasswordModel } from '../models/change-password-model';
 import { RequestChangePasswordModel } from '../models/request-change-password-model';
 import { RequestChangeUserDataModel } from '../models/request-change-user-data-model';
+import { UserProfileView } from '../models/user-profile-model';
 
 @Injectable({
     providedIn: 'root'
@@ -22,9 +23,13 @@ private _urlApi = environment.url;
         private _authHelper: AuthHelper,
     ) { }
 
+  getUserData(userId: string): Observable<UserProfileView> {
+    return this._http.get<UserProfileView>(`${this._urlApi}users/${userId}`);
+  }
+
   changeUserData(data: RequestChangeUserDataModel): Observable<ChangeUserDataModel> {
     let token = this._authHelper.getToken();
-    return this._http.put<ChangeUserDataModel>(`${this._urlApi}users/avatar/${token.id}`, data);
+    return this._http.put<ChangeUserDataModel>(`${this._urlApi}users/${token.id}`, data);
   }
   
   changePassword(data: RequestChangePasswordModel): Observable<ChangedPasswordModel> {

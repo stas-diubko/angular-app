@@ -1,7 +1,7 @@
 <div class="details-wrap">
     <div class="back-to-home" [routerLink]="['/home']"><i class="material-icons"> arrow_back_ios </i><span>Back to products</span> </div>
     <h2>Book's details</h2>
-    <div class="item-wrap">
+    <div class="item-wrap" *ngIf="book">
         <div>
             <img src={{book.bookImage}} alt="book's image">
         </div>

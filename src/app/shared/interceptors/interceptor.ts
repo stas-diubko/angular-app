@@ -28,7 +28,8 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
         
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                if (error.error == 'Token expired') {
+              debugger
+                if (error.error.errorText == 'Token expired') {
                     this.loginService.onlogOut();
                     return;
                 }
@@ -38,14 +39,14 @@ export class CustomHttpInterceptorService implements HttpInterceptor {
                     this.router.navigate(["serverError", caller])
                 }
 
-                if (error instanceof HttpErrorResponse && error.error.statusCode === 401) {
+                if (error instanceof HttpErrorResponse && error.status === 401) {
                     return this.handle401Error(request, next);
                 }
                 if (error instanceof HttpErrorResponse && error.status === 403) {
                     return this.handle403Error(request, next);
                 }
-
-                this.mainService.openSnackBar(error.error, null)
+                
+                this.mainService.openSnackBar(error.error.errorText, null)
                 return throwError(error);
             })
         );

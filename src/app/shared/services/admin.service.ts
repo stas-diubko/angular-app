@@ -32,7 +32,7 @@ export class AdminService {
     }
 
     getAllUsers(data): Observable<GetUsersAdmin> {
-        return this.http.put<GetUsersAdmin>(`${this._urlApi}users`, data);
+        return this.http.get<GetUsersAdmin>(`${this._urlApi}users/${data.page}/${data.pageSize}`);
     }
 
     deleteUser(userId): Observable<DeleteUserModel> {
@@ -40,7 +40,7 @@ export class AdminService {
     }
 
     getProducts(data): Observable<GetProductsAdmin> {
-        return this.http.put<GetProductsAdmin>(`${this._urlApi}books`, data);
+        return this.http.get<GetProductsAdmin>(`${this._urlApi}books/${data.page}/${data.pageSize}`);
     }
 
     deleteProduct(productId): Observable<DeleteProductModel> {

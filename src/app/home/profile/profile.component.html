@@ -6,19 +6,26 @@
         </div>
         <div class="email-wrap">
             <mat-form-field class="input-wrap">
-                <input matInput placeholder="Email" formControlName="email" value={{email}}>
+                <input matInput placeholder="Email" formControlName="email" value={{userData.email}}>
                 <mat-error *ngIf="profileForm.get('email').hasError('required')">
                     Invalid Email!
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="input-wrap">
-                <input matInput placeholder="Name" formControlName="name" value={{name}}>
+                <input matInput placeholder="Name" formControlName="name" value={{userData.name}}>
                 <mat-error *ngIf="profileForm.get('name').hasError('required')">
                     Name must be at least 3 characters!
                 </mat-error>
             </mat-form-field>
         </div>
+        <div class="input-image-wrap">
+            <span><i class="material-icons">image</i></span>
+            <input class="ng-hide" id="input-file-id" multiple type="file" (change)="readURL($event);" />
+        </div>
     </form>
+
+    
+    
     <div class="button-wrap">
         <button mat-raised-button (click)="onChangeData()">Save</button>
     </div>

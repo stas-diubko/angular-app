@@ -4,6 +4,7 @@ import { AdminService } from '../services/admin.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MainService } from '../services/main.service';
+import { DeleteProductModel } from '../models/delete-book-model';
 
 @Component({
     selector: 'dialog-component',
@@ -50,15 +51,10 @@ import { MainService } from '../services/main.service';
         if (JSON.stringify(editedData) === JSON.stringify(this.product)) {
             return;
         }
-
-        try {
-            return this._adminService.updateProduct(editedData).subscribe(() => {
-                this.dialogRef.close();
-                this.mainService.openSnackBar('Product updated', null);
-            })
-        } catch (error) {
-            this.mainService.openSnackBar('Something went wrong', null);
-        }
+          return this._adminService.updateProduct(editedData).subscribe((data: DeleteProductModel) => {
+              this.dialogRef.close();
+              this.mainService.openSnackBar(data.message, null);
+          })
     }
 
     readURL(event: any): void {

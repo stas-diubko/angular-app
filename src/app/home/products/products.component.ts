@@ -29,18 +29,18 @@ export class ProductsComponent implements OnInit {
     }
     this._mainService.addProductToCart(product).subscribe(data=> {
       if(data.success){
-        this._loginService.getCartLength('cart/length');
+        // this._loginService.getCartLength('cart/length');
       }
     })
   }
 
   ngOnInit() {
     this._loginService.isLoginPage(false);
-    this._loginService.getCartLength('cart/length');
+    // this._loginService.getCartLength('cart/length');
     this._mainService.onLoadSpiner(true);
     this._mainService.getAllBooks('books').subscribe((data:any)=>{
       this._mainService.onLoadSpiner(false);
-      this.books = data.data;
+      this.books = data;
     }, error => {
       this._mainService.onLoadSpiner(false);
     })

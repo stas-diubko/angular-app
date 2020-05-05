@@ -6,6 +6,9 @@ import { MainService } from '../../shared/services/main.service';
 import { Router } from '@angular/router';
 import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
+import { UserProfileView } from 'src/app/shared/models/user-profile-model';
+import * as jwt_decode from "jwt-decode";
+import { ChangeUserDataModel } from 'src/app/shared/models/change-user-data-model';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +18,12 @@ import { AuthHelper } from 'src/app/shared/helpers/auth.helper';
 })
 export class ProfileComponent implements OnInit {
 
+  userData: any;
   profileForm: FormGroup;
   profileForm2: FormGroup;
   name:string = '';
   email:string = '';
+  imageSrc:string | ArrayBuffer;
 
   constructor(
     private _loginService: LoginService,
@@ -39,19 +44,33 @@ export class ProfileComponent implements OnInit {
       });
    }
 
+   readURL(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
+        reader.readAsDataURL(file);
+    }
+  }
+
    onChangeData() {
      if (this.profileForm.valid) {
-       let data = {
-         email: this.profileForm.get('email').value,
-         name: this.profileForm.get('name').value
-       }
-       this._profileService.changeUserData(data).subscribe((data)=>{
-        if(data.success){
-          this.mainService.openSnackBar('Data changed', null);
-            localStorage.removeItem('token');
-            localStorage.setItem('token', data.data);
-            this._authHelper.getToken();
+       
+        let data = {
+          name: this.profileForm.get('name').value,
+          email: this.profileForm.get('email').value,
+          image: this.imageSrc ? this.imageSrc : this.userData.image
         }
+        
+       this._profileService.changeUserData(data).subscribe((data: ChangeUserDataModel) => {
+         debugger
+          this.mainService.openSnackBar(data.message, null);
+            // localStorage.removeItem('token');
+            // localStorage.setItem('token', data.data);
+            // this._authHelper.getToken();
+            let token = this._authHelper.getToken();
+            this._loginService.getAvatar(`users/avatar/${token.id}`)
+            this.getUserData();
       });
      } 
      if (!this.profileForm.valid) {
@@ -62,6 +81,7 @@ export class ProfileComponent implements OnInit {
    onChangePassword() {
      if (this.profileForm2.valid) {
        let data = {
+        // userId: 
         currentPassword: this.profileForm2.get('currentPassword').value,
         newPassword: this.profileForm2.get('newPassword').value,
         confirmedNewPassword: this.profileForm2.get('confirmedNewPassword').value
@@ -89,14 +109,22 @@ export class ProfileComponent implements OnInit {
       }
    }
 
+  getUserData() {
+    let userData = this._authHelper.getToken();
+    this._profileService.getUserData(userData.id).subscribe(data => {
+      this.userData = data;
+    })
+  }
+
   ngOnInit() {
     if (!this._authHelper.isAuthenticated()) {
       this.router.navigateByUrl('/home/products');
     }
-    this._loginService.getCartLength('cart/length');
+    // this._loginService.getCartLength('cart/length');
     let userData = this._authHelper.getToken();
     this.name = userData.name;
     this.email = userData.email;
+    this.getUserData()
   }
 
 }

@@ -1,4 +1,4 @@
-export class RegisterModel{
+export class UserProfileView {
     createdAt: string;
     email: string;
     image: string;
